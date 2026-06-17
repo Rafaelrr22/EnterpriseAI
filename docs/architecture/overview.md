@@ -69,7 +69,7 @@ This architecture promotes:
 
 The following diagram illustrates the high-level architecture of EnterpriseAI.
 
-![Component Diagram](../../diagrams/component-diagram.drawio.png)
+![Component Diagram](../../diagrams/component-diagram.png)
 
 ---
 
