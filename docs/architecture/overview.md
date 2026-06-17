@@ -10,7 +10,7 @@ The platform combines Retrieval-Augmented Generation (RAG), local Large Language
 
 ## Vision
 
-EnterpriseAI aims to become a centralized knowledge platform where employees can:
+EnterpriseAI is designed to provide a centralized knowledge platform where employees can:
 
 - Search internal documentation
 - Ask questions using natural language
@@ -55,19 +55,7 @@ EnterpriseAI aims to become a centralized knowledge platform where employees can
 
 The platform follows a modular architecture where each component has a single responsibility.
 
-```text
-Angular UI
-        │
-        ▼
-Spring Boot REST API
-        │
- ┌──────┼────────┐
- ▼      ▼        ▼
-Auth   AI    Documents
- │      │        │
- ▼      ▼        ▼
-PostgreSQL Ollama Qdrant
-```
+
 
 This architecture promotes:
 
@@ -75,6 +63,13 @@ This architecture promotes:
 - Maintainability
 - Loose coupling
 - Easy extensibility
+
+
+## High-Level Component Diagram
+
+The following diagram illustrates the high-level architecture of EnterpriseAI.
+
+![Component Diagram](../../diagrams/component-diagram.drawio.png)
 
 ---
 
@@ -89,6 +84,7 @@ The system is composed of the following modules:
 - Document Management
 - Retrieval-Augmented Generation (RAG)
 - Knowledge Search
+- Health Monitoring
 
 Each module is designed to operate independently while communicating through the Spring Boot REST API.
 
@@ -98,29 +94,46 @@ Each module is designed to operate independently while communicating through the
 
 ```text
 PDF / DOCX
-      │
-      ▼
+
+↓
+
 Document Parser
-      │
-      ▼
+
+↓
+
+Text Extraction
+
+↓
+
 Text Chunking
-      │
-      ▼
-Embeddings
-      │
-      ▼
+
+↓
+
+Embedding Generation
+(Vector Embeddings)
+
+↓
+
 Qdrant
-      │
-      ▼
+
+↓
+
 Semantic Search
-      │
-      ▼
+
+↓
+
 Relevant Context
-      │
-      ▼
+
+↓
+
+Prompt Builder
+
+↓
+
 Ollama
-      │
-      ▼
+
+↓
+
 Final Response
 ```
 
@@ -137,10 +150,11 @@ EnterpriseAI follows several architectural principles:
 - Enterprise ready
 - Easy to maintain
 - Easily extensible
+- Separation of concerns
 
 ---
 
-## Next Steps
+## Related Documentation
 
 The following documents provide additional architectural details:
 
@@ -149,4 +163,4 @@ The following documents provide additional architectural details:
 - database-model.md
 - use-cases.md
 
-Detailed diagrams will be created during Sprint 2.
+Additional architecture diagrams and design documents will be added throughout Sprint 2.
