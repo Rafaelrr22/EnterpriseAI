@@ -5,10 +5,18 @@ spring:
   application:
     name: enterpriseai-backend
 
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/enterpriseai
+    username: enterpriseai
+    password: enterpriseai
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
 # ==========================================
 # Embedded Server Configuration
