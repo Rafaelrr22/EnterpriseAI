@@ -55,3 +55,20 @@ Status:
 Sprint 2 completed successfully.
 
 Project ready for Sprint 3 - Backend Foundation.
+
+---
+
+## 2026-06-18
+
+### Sprint 3 - Backend Foundation
+
+Completed:
+
+- Created Spring Boot backend
+- Configured Maven project
+- Organized package structure
+- Configured application.yml
+- Added HealthController
+- Added SecurityConfig
+- Successfully started embedded Tomcat
+- Implemented first REST endpoint (/api/health)

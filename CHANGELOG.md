@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0 - 2026-06-18
+
+### Added
+
+- Spring Boot backend project
+- Initial package structure
+- Health REST endpoint
+- Basic Spring Security configuration
+- Application configuration (application.yml)
+
 ## [0.2.0] - 2026-06-18
 
 ### Added
