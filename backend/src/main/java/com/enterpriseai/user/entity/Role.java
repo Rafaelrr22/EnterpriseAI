@@ -1,9 +1,12 @@
 package com.enterpriseai.user.entity;
 
-import jakarta.persistence.*;
+import com.enterpriseai.common.entity.BaseEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 import lombok.*;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
@@ -12,15 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Role extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true, length = 20)
     private RoleName name;
 
 }
-
