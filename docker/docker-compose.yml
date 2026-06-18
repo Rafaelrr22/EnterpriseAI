@@ -1,0 +1,59 @@
+
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: enterpriseai-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: enterpriseai
+      POSTGRES_USER: enterpriseai
+      POSTGRES_PASSWORD: enterpriseai
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - enterpriseai-network
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: enterpriseai-qdrant
+    restart: unless-stopped
+
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+    networks:
+      - enterpriseai-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: enterpriseai-ollama
+    restart: unless-stopped
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ollama_data:/root/.ollama
+
+    networks:
+      - enterpriseai-network
+
+volumes:
+  postgres_data:
+  qdrant_data:
+  ollama_data:
+
+networks:
+  enterpriseai-network:
+    driver: bridge
