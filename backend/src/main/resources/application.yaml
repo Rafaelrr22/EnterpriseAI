@@ -32,3 +32,10 @@ logging:
   level:
     org.springframework: INFO
     com.enterpriseai: DEBUG
+
+# ==========================================
+# JWT Configuration
+# ==========================================
+jwt:
+  secret: 4A8F4F6D1B0E0A0F5C8D3A2B7F8E9D6C4A1E5B7C9D0F2A4E6B8C1D3F5A7E9B2C
+  expiration: 86400000

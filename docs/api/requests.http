@@ -1,0 +1,53 @@
+### Register Admin
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Admin",
+  "email": "admin@enterpriseai.local",
+  "password": "Password123!"
+}
+
+###
+
+### Register Maria
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Maria",
+  "email": "maria@enterpriseai.local",
+  "password": "Password123!"
+}### Register Admin
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+"fullName": "Admin",
+"email": "admin@enterpriseai.local",
+"password": "Password123!"
+}
+
+###
+
+### Register Maria
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Maria",
+  "email": "maria@enterpriseai.local",
+  "password": "Password123!"
+}
+
+###
+
+### Register Duplicate User
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Admin Again",
+  "email": "admin@enterpriseai.local",
+  "password": "Password123!"
+}
