@@ -4,7 +4,7 @@
 
 EnterpriseAI is a self-hosted enterprise AI platform designed to help organizations search, understand and interact with internal knowledge using natural language.
 
-The platform combines Retrieval-Augmented Generation (RAG), local Large Language Models (LLMs) and a modular software architecture to provide secure and intelligent access to company documentation.
+The platform combines Retrieval-Augmented Generation (RAG), local Large Language Models (LLMs), and a modular software architecture to provide secure and intelligent access to company documentation.
 
 ---
 
@@ -53,9 +53,7 @@ EnterpriseAI is designed to provide a centralized knowledge platform where emplo
 
 ## High-Level Architecture
 
-The platform follows a modular architecture where each component has a single responsibility.
-
-
+EnterpriseAI follows a modular architecture where each component has a single responsibility and communicates through the Spring Boot REST API.
 
 This architecture promotes:
 
@@ -63,13 +61,23 @@ This architecture promotes:
 - Maintainability
 - Loose coupling
 - Easy extensibility
+- Separation of concerns
 
+---
 
 ## High-Level Component Diagram
 
-The following diagram illustrates the high-level architecture of EnterpriseAI.
+The following diagram illustrates the logical architecture of EnterpriseAI.
 
 ![Component Diagram](../../diagrams/component-diagram.png)
+
+---
+
+## Deployment Diagram
+
+The deployment diagram illustrates how the application components are deployed within the infrastructure.
+
+![Deployment Diagram](../../diagrams/DeploymentDiagram.png)
 
 ---
 
@@ -158,9 +166,38 @@ EnterpriseAI follows several architectural principles:
 
 The following documents provide additional architectural details:
 
+### Architecture
+
+- overview.md
 - backend-architecture.md
 - modules.md
+
+### Data Model
+
 - database-model.md
+- entity-relationship-diagram.png
+
+### System Design
+
+- component-diagram.png
+- deployment-diagram.png
+- chat-request-sequence-diagram.png
+
+### Functional Analysis
+
 - use-cases.md
 
-Additional architecture diagrams and design documents will be added throughout Sprint 2.
+### Architecture Decisions
+
+- ADR-001 - Spring Boot
+- ADR-002 - Ollama
+- ADR-003 - PostgreSQL
+- ADR-004 - Qdrant
+
+---
+
+## Current Status
+
+Architecture and planning for EnterpriseAI have been completed.
+
+The project is ready to move into the backend implementation phase (Sprint 3).
