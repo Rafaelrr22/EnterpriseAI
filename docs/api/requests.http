@@ -58,3 +58,11 @@ Content-Type: application/json
   "email": "maria@enterpriseai.local",
   "password": "Password123!"
 }
+
+### Current User
+GET http://localhost:8080/api/users/me
+Authorization: Bearer {{jwt}}
+
+### Current User
+GET http://localhost:8080/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
