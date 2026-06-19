@@ -79,3 +79,18 @@ Content-Type: application/json
 ### List Conversations
 GET http://localhost:8080/api/conversations
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+
+### Send Message
+POST http://localhost:8080/api/conversations/c7333485-a63d-408c-91c1-ae1dc463421e/messages
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+Content-Type: application/json
+
+{
+  "content": "Olá, como estás?"
+}
+
+###
+
+### Get Messages
+GET http://localhost:8080/api/conversations/c7333485-a63d-408c-91c1-ae1dc463421e/messages
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
