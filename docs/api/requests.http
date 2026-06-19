@@ -1,10 +1,23 @@
-### Health
-GET http://localhost:8080/api/health
+@host = http://localhost:8080
 
-###
+@adminJwt = COLE_AQUI_O_TOKEN_DO_ADMIN
+@mariaJwt = COLE_AQUI_O_TOKEN_DA_MARIA
+
+@adminConversation = c7333485-a63d-408c-91c1-ae1dc463421e
+
+#######################################
+# Health
+#######################################
+
+### Health
+GET {{host}}/api/health
+
+#######################################
+# Authentication
+#######################################
 
 ### Register Admin
-POST http://localhost:8080/api/auth/register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 
 {
@@ -16,7 +29,7 @@ Content-Type: application/json
 ###
 
 ### Register Maria
-POST http://localhost:8080/api/auth/register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 
 {
@@ -28,7 +41,7 @@ Content-Type: application/json
 ###
 
 ### Register Duplicate User
-POST http://localhost:8080/api/auth/register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 
 {
@@ -40,7 +53,7 @@ Content-Type: application/json
 ###
 
 ### Login Admin
-POST http://localhost:8080/api/auth/login
+POST {{host}}/api/auth/login
 Content-Type: application/json
 
 {
@@ -51,7 +64,7 @@ Content-Type: application/json
 ###
 
 ### Login Maria
-POST http://localhost:8080/api/auth/login
+POST {{host}}/api/auth/login
 Content-Type: application/json
 
 {
@@ -59,15 +72,21 @@ Content-Type: application/json
   "password": "Password123!"
 }
 
-
+#######################################
+# User
+#######################################
 
 ### Current User
-GET http://localhost:8080/api/users/me
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+GET {{host}}/api/users/me
+Authorization: Bearer {{adminJwt}}
+
+#######################################
+# Conversations
+#######################################
 
 ### Create Conversation
-POST http://localhost:8080/api/conversations
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+POST {{host}}/api/conversations
+Authorization: Bearer {{adminJwt}}
 Content-Type: application/json
 
 {
@@ -76,19 +95,23 @@ Content-Type: application/json
 
 ###
 
-### List Conversations
-GET http://localhost:8080/api/conversations
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+### List Conversations (Admin)
+GET {{host}}/api/conversations
+Authorization: Bearer {{adminJwt}}
 
+###
 
-### List Conversations
-### Maria cant watch the admin conversations
-GET http://localhost:8080/api/conversations
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJpYUBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NjE3NzcsImV4cCI6MTc4MTk0ODE3N30.EDyys-DhqhFWDImbhspAITeguQ2g_iTfKMjLAooY1dlzWdPlDWAomOlHeq2qadu4__rPf51VCK6H_ImRChbFkw
+### List Conversations (Maria)
+GET {{host}}/api/conversations
+Authorization: Bearer {{mariaJwt}}
 
-### Send Message
-POST http://localhost:8080/api/conversations/c7333485-a63d-408c-91c1-ae1dc463421e/messages
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+#######################################
+# Messages
+#######################################
+
+### Send Message (Admin)
+POST {{host}}/api/conversations/{{adminConversation}}/messages
+Authorization: Bearer {{adminJwt}}
 Content-Type: application/json
 
 {
@@ -97,11 +120,24 @@ Content-Type: application/json
 
 ###
 
-### Get Messages
-GET http://localhost:8080/api/conversations/c7333485-a63d-408c-91c1-ae1dc463421e/messages
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NTc1MzksImV4cCI6MTc4MTk0MzkzOX0.vOKhQqZFgNx-72Gh564Ftpahx3TTNvc7AL_jcaUAIkStmc0dNASNPZeBJ-HDc6sHTeOFphbbg7RHmGJQCi8XNg
+### Get Messages (Admin)
+GET {{host}}/api/conversations/{{adminConversation}}/messages
+Authorization: Bearer {{adminJwt}}
 
-### Get Messages
-### Maria cant get messages
-GET http://localhost:8080/api/conversations/c7333485-a63d-408c-91c1-ae1dc463421e/messages
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJpYUBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODE4NjE3NzcsImV4cCI6MTc4MTk0ODE3N30.EDyys-DhqhFWDImbhspAITeguQ2g_iTfKMjLAooY1dlzWdPlDWAomOlHeq2qadu4__rPf51VCK6H_ImRChbFkw
+###
+
+### Get Messages (Maria - Unauthorized)
+GET {{host}}/api/conversations/{{adminConversation}}/messages
+Authorization: Bearer {{mariaJwt}}
+
+#######################################
+# AI
+#######################################
+
+### AI Test
+POST {{host}}/api/ai/test
+Content-Type: application/json
+
+{
+  "prompt": "Quem és?"
+}
