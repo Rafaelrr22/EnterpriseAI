@@ -1,15 +1,14 @@
 package com.enterpriseai.conversation.service.impl;
 
+import com.enterpriseai.common.exception.ResourceNotFoundException;
+import com.enterpriseai.common.security.AuthenticatedUserService;
 import com.enterpriseai.conversation.dto.ConversationResponse;
 import com.enterpriseai.conversation.dto.CreateConversationRequest;
 import com.enterpriseai.conversation.entity.Conversation;
 import com.enterpriseai.conversation.repository.ConversationRepository;
 import com.enterpriseai.conversation.service.ConversationService;
 import com.enterpriseai.user.entity.User;
-import com.enterpriseai.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +18,12 @@ import java.util.List;
 public class ConversationServiceImpl implements ConversationService {
 
     private final ConversationRepository conversationRepository;
-    private final UserRepository userRepository;
+    private final AuthenticatedUserService authenticatedUserService;
 
     @Override
     public ConversationResponse createConversation(CreateConversationRequest request) {
 
-        User user = getAuthenticatedUser();
+        User user = authenticatedUserService.getCurrentUser();
 
         Conversation conversation = Conversation.builder()
                 .title(request.getTitle())
@@ -33,13 +32,14 @@ public class ConversationServiceImpl implements ConversationService {
 
         Conversation savedConversation = conversationRepository.save(conversation);
 
+
         return toResponse(savedConversation);
     }
 
     @Override
     public List<ConversationResponse> getMyConversations() {
 
-        User user = getAuthenticatedUser();
+        User user = authenticatedUserService.getCurrentUser();
 
         return conversationRepository.findByUser(user)
                 .stream()
@@ -47,17 +47,7 @@ public class ConversationServiceImpl implements ConversationService {
                 .toList();
     }
 
-    private User getAuthenticatedUser() {
 
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-
-        String email = authentication.getName();
-
-        return userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new IllegalStateException("Authenticated user not found."));
-    }
 
     private ConversationResponse toResponse(Conversation conversation) {
 
