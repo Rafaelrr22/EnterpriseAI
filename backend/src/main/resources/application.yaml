@@ -47,3 +47,11 @@ logging:
 jwt:
   secret: 4A8F4F6D1B0E0A0F5C8D3A2B7F8E9D6C4A1E5B7C9D0F2A4E6B8C1D3F5A7E9B2C
   expiration: 86400000
+
+# ==========================================
+# Ollama Configuration
+# ==========================================
+ollama:
+  base-url: http://127.0.0.1:11434
+  model: llama3.2:3b
+  timeout: 60s

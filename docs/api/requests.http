@@ -1,6 +1,6 @@
 @host = http://localhost:8080
 
-@adminJwt = COLE_AQUI_O_TOKEN_DO_ADMIN
+@adminJwt = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODIxMjU2MzMsImV4cCI6MTc4MjIxMjAzM30.ZJ1NVNjR9krxx4x5eeDonQJPUl7gcZyUjJMnI8jvk4g1aRKYbPYDQziGdJltJudLFm5AOGmJwmymbzrU125Org
 @mariaJwt = COLE_AQUI_O_TOKEN_DA_MARIA
 
 @adminConversation = c7333485-a63d-408c-91c1-ae1dc463421e
@@ -141,3 +141,4 @@ Content-Type: application/json
 {
   "prompt": "Quem és?"
 }
+
