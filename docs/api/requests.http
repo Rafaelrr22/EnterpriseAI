@@ -3,7 +3,7 @@
 @adminJwt = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODIxMjU2MzMsImV4cCI6MTc4MjIxMjAzM30.ZJ1NVNjR9krxx4x5eeDonQJPUl7gcZyUjJMnI8jvk4g1aRKYbPYDQziGdJltJudLFm5AOGmJwmymbzrU125Org
 @mariaJwt = COLE_AQUI_O_TOKEN_DA_MARIA
 
-@adminConversation = c7333485-a63d-408c-91c1-ae1dc463421e
+@adminConversation = c5703f80-f58f-4cdd-a63c-35dd13e4d1c6
 
 #######################################
 # Health
@@ -142,3 +142,42 @@ Content-Type: application/json
   "prompt": "Quem és?"
 }
 
+#######################################
+# AI Chat
+#######################################
+
+### Create AI Conversation
+POST {{host}}/api/conversations
+Authorization: Bearer {{adminJwt}}
+Content-Type: application/json
+
+{
+  "title": "Chat com IA"
+}
+
+###
+
+### Send AI Message
+POST {{host}}/api/conversations/{{adminConversation}}/messages
+Authorization: Bearer {{adminJwt}}
+Content-Type: application/json
+
+{
+  "content": "Quem és?"
+}
+
+###
+
+### Get AI Conversation Messages
+GET {{host}}/api/conversations/{{adminConversation}}/messages
+Authorization: Bearer {{adminJwt}}
+
+
+### Create AI Conversation
+POST {{host}}/api/conversations
+Authorization: Bearer {{adminJwt}}
+Content-Type: application/json
+
+{
+  "title": "Chat com IA"
+}

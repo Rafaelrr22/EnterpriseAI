@@ -1,5 +1,6 @@
 package com.enterpriseai.message.service.impl;
 
+import com.enterpriseai.ai.service.AiService;
 import com.enterpriseai.common.exception.ResourceNotFoundException;
 import com.enterpriseai.common.security.AuthenticatedUserService;
 import com.enterpriseai.conversation.entity.Conversation;
@@ -13,6 +14,7 @@ import com.enterpriseai.message.service.MessageService;
 import com.enterpriseai.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,8 +26,10 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
     private final ConversationRepository conversationRepository;
     private final AuthenticatedUserService authenticatedUserService;
+    private final AiService aiService;
 
     @Override
+    @Transactional
     public MessageResponse sendMessage(
             UUID conversationId,
             SendMessageRequest request
@@ -46,6 +50,16 @@ public class MessageServiceImpl implements MessageService {
                 .build();
 
         Message savedMessage = messageRepository.save(message);
+
+        String aiResponse = aiService.generateResponse(request.getContent());
+
+        Message assistantMessage = Message.builder()
+                .conversation(conversation)
+                .role(MessageRole.ASSISTANT)
+                .content(aiResponse)
+                .build();
+
+        Message savedAssistantMessage = messageRepository.save(assistantMessage);
 
         return toResponse(savedMessage);
     }
