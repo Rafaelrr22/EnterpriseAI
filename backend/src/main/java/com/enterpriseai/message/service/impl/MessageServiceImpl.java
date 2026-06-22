@@ -5,6 +5,7 @@ import com.enterpriseai.common.exception.ResourceNotFoundException;
 import com.enterpriseai.common.security.AuthenticatedUserService;
 import com.enterpriseai.conversation.entity.Conversation;
 import com.enterpriseai.conversation.repository.ConversationRepository;
+import com.enterpriseai.message.dto.ChatResponse;
 import com.enterpriseai.message.dto.MessageResponse;
 import com.enterpriseai.message.dto.SendMessageRequest;
 import com.enterpriseai.message.entity.Message;
@@ -30,7 +31,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional
-    public MessageResponse sendMessage(
+    public ChatResponse sendMessage(
             UUID conversationId,
             SendMessageRequest request
     ) {
@@ -51,7 +52,12 @@ public class MessageServiceImpl implements MessageService {
 
         Message savedMessage = messageRepository.save(message);
 
-        String aiResponse = aiService.generateResponse(request.getContent());
+        List<Message> history =
+                messageRepository.findByConversationOrderByCreatedAtAsc(conversation);
+
+        String prompt = buildPrompt(history);
+
+        String aiResponse = aiService.generateResponse(prompt);
 
         Message assistantMessage = Message.builder()
                 .conversation(conversation)
@@ -61,7 +67,36 @@ public class MessageServiceImpl implements MessageService {
 
         Message savedAssistantMessage = messageRepository.save(assistantMessage);
 
-        return toResponse(savedMessage);
+        return new ChatResponse(
+                toResponse(savedMessage),
+                toResponse(savedAssistantMessage)
+        );
+    }
+
+
+    private String buildPrompt(List<Message> history) {
+
+        StringBuilder prompt = new StringBuilder();
+
+        prompt.append("""
+            You are EnterpriseAI, a helpful AI assistant.
+            Continue the conversation naturally.
+
+            Conversation:
+            
+            """);
+
+        for (Message message : history) {
+
+            prompt.append(message.getRole().name())
+                    .append(": ")
+                    .append(message.getContent())
+                    .append("\n\n");
+        }
+
+        prompt.append("ASSISTANT:");
+
+        return prompt.toString();
     }
 
     @Override

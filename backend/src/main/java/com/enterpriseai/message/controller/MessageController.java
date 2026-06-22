@@ -3,6 +3,7 @@ package com.enterpriseai.message.controller;
 import com.enterpriseai.message.dto.MessageResponse;
 import com.enterpriseai.message.dto.SendMessageRequest;
 import com.enterpriseai.message.service.MessageService;
+import com.enterpriseai.message.dto.ChatResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class MessageController {
     private final MessageService messageService;
 
     @PostMapping
-    public MessageResponse sendMessage(
+    public ChatResponse sendMessage(
             @PathVariable UUID conversationId,
             @Valid @RequestBody SendMessageRequest request
     ) {

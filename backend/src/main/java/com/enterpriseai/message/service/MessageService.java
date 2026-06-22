@@ -1,5 +1,6 @@
 package com.enterpriseai.message.service;
 
+import com.enterpriseai.message.dto.ChatResponse;
 import com.enterpriseai.message.dto.MessageResponse;
 import com.enterpriseai.message.dto.SendMessageRequest;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 public interface MessageService {
 
-    MessageResponse sendMessage(
+    ChatResponse sendMessage(
             UUID conversationId,
             SendMessageRequest request
     );
