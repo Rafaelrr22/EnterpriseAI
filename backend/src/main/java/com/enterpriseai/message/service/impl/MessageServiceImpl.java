@@ -1,5 +1,6 @@
 package com.enterpriseai.message.service.impl;
 
+import com.enterpriseai.ai.prompt.PromptBuilder;
 import com.enterpriseai.ai.service.AiService;
 import com.enterpriseai.common.exception.ResourceNotFoundException;
 import com.enterpriseai.common.security.AuthenticatedUserService;
@@ -28,6 +29,7 @@ public class MessageServiceImpl implements MessageService {
     private final ConversationRepository conversationRepository;
     private final AuthenticatedUserService authenticatedUserService;
     private final AiService aiService;
+    private final PromptBuilder promptBuilder;
 
     @Override
     @Transactional
@@ -55,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
         List<Message> history =
                 messageRepository.findByConversationOrderByCreatedAtAsc(conversation);
 
-        String prompt = buildPrompt(history);
+        String prompt = promptBuilder.build(history);
 
         String aiResponse = aiService.generateResponse(prompt);
 
@@ -74,30 +76,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
 
-    private String buildPrompt(List<Message> history) {
 
-        StringBuilder prompt = new StringBuilder();
-
-        prompt.append("""
-            You are EnterpriseAI, a helpful AI assistant.
-            Continue the conversation naturally.
-
-            Conversation:
-            
-            """);
-
-        for (Message message : history) {
-
-            prompt.append(message.getRole().name())
-                    .append(": ")
-                    .append(message.getContent())
-                    .append("\n\n");
-        }
-
-        prompt.append("ASSISTANT:");
-
-        return prompt.toString();
-    }
 
     @Override
     public List<MessageResponse> getConversationMessages(UUID conversationId) {
