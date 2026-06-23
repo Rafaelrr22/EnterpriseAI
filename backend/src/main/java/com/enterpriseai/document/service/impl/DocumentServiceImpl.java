@@ -3,6 +3,7 @@ package com.enterpriseai.document.service.impl;
 import com.enterpriseai.common.security.AuthenticatedUserService;
 import com.enterpriseai.document.dto.DocumentResponse;
 import com.enterpriseai.document.entity.Document;
+import com.enterpriseai.document.parser.DocumentParser;
 import com.enterpriseai.document.repository.DocumentRepository;
 import com.enterpriseai.document.service.DocumentService;
 import com.enterpriseai.document.storage.FileStorage;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
@@ -23,6 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final DocumentRepository documentRepository;
     private final AuthenticatedUserService authenticatedUserService;
     private final FileStorage fileStorage;
+    private final DocumentParser documentParser;
 
     @Override
     @Transactional
@@ -39,6 +42,10 @@ public class DocumentServiceImpl implements DocumentService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file.", e);
         }
+
+        String extractedText = documentParser.parse(new File(filePath));
+
+        System.out.println(extractedText);
 
         User user = authenticatedUserService.getCurrentUser();
 
