@@ -10,12 +10,11 @@ spring:
     username: enterpriseai
     password: enterpriseai
 
-  spring:
-    servlet:
+  servlet:
     multipart:
-    enabled: true
-    max-file-size: 20MB
-    max-request-size: 20MB
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
 
   jpa:
     hibernate:
@@ -60,5 +59,9 @@ jwt:
 # ==========================================
 ollama:
   base-url: http://127.0.0.1:11434
-  model: llama3.2:3b
+
+  chat-model: llama3.2:3b
+
+  embedding-model: nomic-embed-text:latest
+
   timeout: 60s

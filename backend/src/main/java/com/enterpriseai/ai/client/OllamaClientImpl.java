@@ -1,5 +1,7 @@
 package com.enterpriseai.ai.client;
 
+import com.enterpriseai.ai.dto.EmbeddingRequest;
+import com.enterpriseai.ai.dto.EmbeddingResponse;
 import com.enterpriseai.ai.dto.OllamaRequest;
 import com.enterpriseai.ai.dto.OllamaResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +28,15 @@ public class OllamaClientImpl implements OllamaClient {
                 .retrieve()
                 .body(OllamaResponse.class);
 
+    }
+
+    @Override
+    public EmbeddingResponse embeddings(EmbeddingRequest request) {
+
+        return restClient.post()
+                .uri(baseUrl + "/api/embeddings")
+                .body(request)
+                .retrieve()
+                .body(EmbeddingResponse.class);
     }
 }

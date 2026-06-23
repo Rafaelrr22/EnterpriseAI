@@ -15,7 +15,7 @@ public class AiServiceImpl implements AiService {
 
     private final OllamaClient ollamaClient;
 
-    @Value("${ollama.model}")
+    @Value("${ollama.chat-model}")
     private String model;
 
     @Override
