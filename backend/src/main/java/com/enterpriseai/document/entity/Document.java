@@ -24,6 +24,9 @@ public class Document {
     private String filename;
 
     @Column(nullable = false)
+    private String storePath;
+
+    @Column(nullable = false)
     private String contentType;
 
     @Column(nullable = false)
