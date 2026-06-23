@@ -173,11 +173,25 @@ GET {{host}}/api/conversations/{{adminConversation}}/messages
 Authorization: Bearer {{adminJwt}}
 
 
-### Create AI Conversation
-POST {{host}}/api/conversations
-Authorization: Bearer {{adminJwt}}
-Content-Type: application/json
 
-{
-  "title": "Chat com IA"
-}
+#######################################
+# Documents
+#######################################
+
+### Upload Document
+POST {{host}}/api/documents
+Authorization: Bearer {{adminJwt}}
+Content-Type: multipart/form-data
+
+file=@files/test.txt
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.txt"
+Content-Type: text/plain
+
+Hello EnterpriseAI!
+--WebAppBoundary--
+
+### List Documents
+GET {{host}}/api/documents
+Authorization: Bearer {{adminJwt}}
