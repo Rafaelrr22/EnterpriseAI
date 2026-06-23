@@ -1,6 +1,7 @@
 package com.enterpriseai.document.service.impl;
 
 import com.enterpriseai.common.security.AuthenticatedUserService;
+import com.enterpriseai.document.chunk.DocumentChunker;
 import com.enterpriseai.document.dto.DocumentResponse;
 import com.enterpriseai.document.entity.Document;
 import com.enterpriseai.document.parser.DocumentParser;
@@ -26,6 +27,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final AuthenticatedUserService authenticatedUserService;
     private final FileStorage fileStorage;
     private final DocumentParser documentParser;
+    private final DocumentChunker documentChunker;
 
     @Override
     @Transactional
@@ -45,7 +47,14 @@ public class DocumentServiceImpl implements DocumentService {
 
         String extractedText = documentParser.parse(new File(filePath));
 
-        System.out.println(extractedText);
+        List<String> chunks = documentChunker.chunk(extractedText);
+
+        System.out.println("Chunks: " + chunks.size());
+
+        for (String chunk : chunks) {
+            System.out.println("--------------------");
+            System.out.println(chunk);
+        }
 
         User user = authenticatedUserService.getCurrentUser();
 
