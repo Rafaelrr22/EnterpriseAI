@@ -1,5 +1,6 @@
 package com.enterpriseai.document.service.impl;
 
+import com.enterpriseai.ai.service.EmbeddingService;
 import com.enterpriseai.common.security.AuthenticatedUserService;
 import com.enterpriseai.document.chunk.DocumentChunker;
 import com.enterpriseai.document.dto.DocumentResponse;
@@ -9,6 +10,7 @@ import com.enterpriseai.document.repository.DocumentRepository;
 import com.enterpriseai.document.service.DocumentService;
 import com.enterpriseai.document.storage.FileStorage;
 import com.enterpriseai.user.entity.User;
+import com.enterpriseai.vector.service.VectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,8 @@ public class DocumentServiceImpl implements DocumentService {
     private final FileStorage fileStorage;
     private final DocumentParser documentParser;
     private final DocumentChunker documentChunker;
+    private final EmbeddingService embeddingService;
+    private final VectorService vectorService;
 
     @Override
     @Transactional
@@ -49,7 +53,16 @@ public class DocumentServiceImpl implements DocumentService {
 
         List<String> chunks = documentChunker.chunk(extractedText);
 
-        System.out.println("Chunks: " + chunks.size());
+        for (String chunk : chunks) {
+
+            List<Double> embedding =
+                    embeddingService.generateEmbedding(chunk);
+
+            vectorService.store(
+                    chunk,
+                    embedding
+            );
+        }
 
         for (String chunk : chunks) {
             System.out.println("--------------------");
