@@ -1,6 +1,6 @@
 @host = http://localhost:8080
 
-@adminJwt = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODIyMTAwMDMsImV4cCI6MTc4MjI5NjQwM30.eIYwieUHwzBWetp5Jr-vsPaoGFvIW0FSnAO9b2UUhGCi9xISKEEI361DAkDwZwYPDKdys3dw_w4uTbSK_4lyiw
+@adminJwt = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODIzMDkwNjcsImV4cCI6MTc4MjM5NTQ2N30.bL9-bPPE3h2h0h9ek1cNpdZadXtNC-BobQrdqnG6PZKRtd3ZeSHCLawFrgWssPPxVhScAK8NW6qKJqeHKr_8Zw
 @mariaJwt = COLE_AQUI_O_TOKEN_DA_MARIA
 
 @adminConversation = c5703f80-f58f-4cdd-a63c-35dd13e4d1c6
@@ -195,3 +195,11 @@ Hello EnterpriseAI!
 ### List Documents
 GET {{host}}/api/documents
 Authorization: Bearer {{adminJwt}}
+
+### Embedding Test
+POST {{host}}/api/ai/embedding-test
+Content-Type: application/json
+
+{
+  "prompt": "Hello EnterpriseAI!"
+}

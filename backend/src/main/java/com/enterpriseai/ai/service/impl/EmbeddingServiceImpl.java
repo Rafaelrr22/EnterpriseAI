@@ -28,6 +28,12 @@ public class EmbeddingServiceImpl implements EmbeddingService {
         EmbeddingResponse response =
                 ollamaClient.embeddings(request);
 
+
+        System.out.println(
+                "Embedding size: " +
+                        response.getEmbedding().size()
+        );
+
         return response.getEmbedding();
     }
 }

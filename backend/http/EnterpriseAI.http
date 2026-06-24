@@ -27,3 +27,6 @@ Content-Type: text/plain
 ### List Documents
 GET {{host}}/api/documents
 Authorization: Bearer {{adminJwt}}
+
+### Initialize Qdrant Collection
+POST {{host}}/api/vector/init
