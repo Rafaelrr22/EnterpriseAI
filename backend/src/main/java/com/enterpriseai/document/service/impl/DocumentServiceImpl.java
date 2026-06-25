@@ -64,11 +64,6 @@ public class DocumentServiceImpl implements DocumentService {
             );
         }
 
-        for (String chunk : chunks) {
-            System.out.println("--------------------");
-            System.out.println(chunk);
-        }
-
         User user = authenticatedUserService.getCurrentUser();
 
         Document document = Document.builder()
@@ -106,5 +101,4 @@ public class DocumentServiceImpl implements DocumentService {
                 document.getUploadedAt()
         );
     }
-
 }

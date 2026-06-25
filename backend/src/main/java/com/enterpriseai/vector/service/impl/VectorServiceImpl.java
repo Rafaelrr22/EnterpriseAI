@@ -1,5 +1,6 @@
 package com.enterpriseai.vector.service.impl;
 
+import com.enterpriseai.ai.service.EmbeddingService;
 import com.enterpriseai.vector.client.QdrantClient;
 import com.enterpriseai.vector.dto.VectorPoint;
 import com.enterpriseai.vector.service.VectorService;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class VectorServiceImpl implements VectorService {
 
     private final QdrantClient qdrantClient;
+    private final EmbeddingService embeddingService;
 
     @Override
     public void initializeCollection() {
@@ -33,9 +35,15 @@ public class VectorServiceImpl implements VectorService {
                 content
         );
 
-        System.out.println(">>> Storing vector");
-
         qdrantClient.upsertPoint(point);
+    }
+
+    @Override
+    public List<String> search(String query) {
+
+        List<Double> embedding = embeddingService.generateEmbedding(query);
+
+        return qdrantClient.search(embedding);
     }
 
 

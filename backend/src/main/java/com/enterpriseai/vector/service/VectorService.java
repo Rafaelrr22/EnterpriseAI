@@ -11,6 +11,6 @@ public interface VectorService {
             List<Double> embedding
     );
 
-
+    List<String> search(String query);
 
 }

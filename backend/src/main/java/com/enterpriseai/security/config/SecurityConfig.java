@@ -33,7 +33,8 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/api/ai/test",
                                 "/api/ai/embedding-test",
-                                "/api/vector/init"
+                                "/api/vector/init",
+                                "/api/rag/ask"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

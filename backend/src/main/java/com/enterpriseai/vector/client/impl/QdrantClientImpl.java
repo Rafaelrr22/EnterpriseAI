@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -56,7 +58,6 @@ public class QdrantClientImpl implements QdrantClient {
                 }
         );
 
-        System.out.println(">>> Sending point to Qdrant");
 
         restClient.put()
                 .uri(baseUrl + "/collections/" +
@@ -65,5 +66,41 @@ public class QdrantClientImpl implements QdrantClient {
                 .body(requestBody)
                 .retrieve()
                 .toBodilessEntity();
+    }
+
+    @Override
+    public List<String> search(List<Double> embedding) {
+
+        Map<String, Object> requestBody = Map.of(
+                "vector", embedding,
+                "limit", 3,
+                "with_payload", true
+        );
+
+        Map response = restClient.post()
+                .uri(baseUrl + "/collections/" +
+                        collectionName +
+                        "/points/search")
+                .body(requestBody)
+                .retrieve()
+                .body(Map.class);
+
+
+        List<String> results = new ArrayList<>();
+
+        List<Map<String, Object>> points =
+                (List<Map<String, Object>>) response.get("result");
+
+        for (Map<String, Object> point : points) {
+
+            Map<String, Object> payload =
+                    (Map<String, Object>) point.get("payload");
+
+            results.add(
+                    payload.get("content").toString()
+            );
+        }
+
+        return results;
     }
 }

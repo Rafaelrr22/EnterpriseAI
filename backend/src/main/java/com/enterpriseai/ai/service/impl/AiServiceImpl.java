@@ -21,7 +21,6 @@ public class AiServiceImpl implements AiService {
     @Override
     public String generateResponse(String prompt) {
 
-        System.out.println(">>> Sending prompt to Ollama...");
 
         OllamaRequest request = new OllamaRequest(
                 model,
@@ -31,7 +30,6 @@ public class AiServiceImpl implements AiService {
 
         OllamaResponse response = ollamaClient.generate(request);
 
-        System.out.println(">>> Ollama answered!");
 
         return response.getResponse();
     }
