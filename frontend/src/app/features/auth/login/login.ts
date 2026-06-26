@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class Login {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
 
     this.loginForm = this.formBuilder.group({
@@ -48,6 +50,8 @@ export class Login {
         this.authService.saveToken(response.token);
 
         console.log('JWT:', response.token);
+
+        this.router.navigate(['/dashboard'])
 
       },
 
