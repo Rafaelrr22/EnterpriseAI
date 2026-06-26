@@ -45,7 +45,7 @@ export class Login {
 
       next: (response) => {
 
-        localStorage.setItem('token', response.token);
+        this.authService.saveToken(response.token);
 
         console.log('JWT:', response.token);
 
