@@ -50,8 +50,9 @@ export class Login {
         this.authService.saveToken(response.token);
 
         console.log('JWT:', response.token);
+        console.log('Stored:', localStorage.getItem('token'));
 
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
 
       },
 
