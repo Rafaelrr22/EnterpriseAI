@@ -85,6 +85,9 @@ public class DocumentServiceImpl implements DocumentService {
 
         User user = authenticatedUserService.getCurrentUser();
 
+        System.out.println("Current user: " + user.getId());
+        System.out.println("Current email: " + user.getEmail());
+
         return documentRepository.findByUploadedBy(user)
                 .stream()
                 .map(this::toResponse)

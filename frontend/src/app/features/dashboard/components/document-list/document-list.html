@@ -1,0 +1,32 @@
+<div>
+
+  <h3>My Documents</h3>
+
+  <div *ngIf="documents.length === 0">
+    No documents uploaded yet.
+  </div>
+
+  <ul *ngIf="documents.length > 0">
+
+    <li *ngFor="let document of documents">
+
+      <strong>{{ document.filename }}</strong>
+
+      <br>
+
+      Type: {{ document.contentType }}
+
+      <br>
+
+      Size: {{ document.size }}
+
+      <br>
+
+      Uploaded:
+      {{ document.uploadedAt | date:'dd/MM/yyyy HH:mm' }}
+
+    </li>
+
+  </ul>
+
+</div>

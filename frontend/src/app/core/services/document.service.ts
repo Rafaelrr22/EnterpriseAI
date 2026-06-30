@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { DocumentResponse } from '../models/document-response';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,22 +16,24 @@ export class DocumentService {
     private http: HttpClient
   ) {}
 
-  upload(file: File): Observable<any> {
+  upload(file: File): Observable<DocumentResponse> {
 
     const formData = new FormData();
 
     formData.append('file', file);
 
-    return this.http.post(
+    return this.http.post<DocumentResponse>(
       this.apiUrl,
       formData
     );
 
   }
 
-  list(): Observable<any> {
+  list(): Observable<DocumentResponse[]> {
 
-    return this.http.get(this.apiUrl);
+    return this.http.get<DocumentResponse[]>(
+      this.apiUrl
+    );
 
   }
 
