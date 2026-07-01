@@ -1,6 +1,7 @@
 package com.enterpriseai.rag.controller;
 
 import com.enterpriseai.rag.dto.RagRequest;
+import com.enterpriseai.rag.dto.RagResponse;
 import com.enterpriseai.rag.service.RagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ public class RagController {
     private final RagService ragService;
 
     @PostMapping("/ask")
-    public String ask(
+    public RagResponse ask(
             @RequestBody RagRequest request
     ) {
 

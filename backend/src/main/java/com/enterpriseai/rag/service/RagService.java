@@ -1,7 +1,9 @@
 package com.enterpriseai.rag.service;
 
+import com.enterpriseai.rag.dto.RagResponse;
+
 public interface RagService {
 
-    String ask(String question);
+    RagResponse ask(String question);
 
 }

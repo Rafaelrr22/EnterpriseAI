@@ -3,13 +3,16 @@ package com.enterpriseai.rag.service.impl;
 import com.enterpriseai.ai.service.AiService;
 import com.enterpriseai.document.entity.Document;
 import com.enterpriseai.document.repository.DocumentRepository;
+import com.enterpriseai.rag.dto.RagResponse;
 import com.enterpriseai.rag.service.RagService;
 import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.service.VectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -21,11 +24,12 @@ public class RagServiceImpl implements RagService {
     private final DocumentRepository documentRepository;
 
     @Override
-    public String ask(String question) {
+    public RagResponse ask(String question) {
 
         List<SearchResult> chunks =
                 vectorService.search(question);
 
+        Set<String> sources = new LinkedHashSet<>();
         StringBuilder context = new StringBuilder();
 
         for (SearchResult chunk : chunks) {
@@ -38,6 +42,8 @@ public class RagServiceImpl implements RagService {
                     document != null
                             ? document.getFilename()
                             : "Unknown document";
+
+            sources.add(filename);
 
             context.append("""
                     Document:
@@ -73,6 +79,12 @@ public class RagServiceImpl implements RagService {
 
         System.out.println(prompt);
 
-        return aiService.generateResponse(prompt);
+        String answer =
+                aiService.generateResponse(prompt);
+
+        return new RagResponse(
+                answer,
+                List.copyOf(sources)
+        );
     }
 }
