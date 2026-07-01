@@ -1,6 +1,8 @@
 package com.enterpriseai.rag.service.impl;
 
 import com.enterpriseai.ai.service.AiService;
+import com.enterpriseai.document.entity.Document;
+import com.enterpriseai.document.repository.DocumentRepository;
 import com.enterpriseai.rag.service.RagService;
 import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.service.VectorService;
@@ -8,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ public class RagServiceImpl implements RagService {
 
     private final VectorService vectorService;
     private final AiService aiService;
+    private final DocumentRepository documentRepository;
 
     @Override
     public String ask(String question) {
@@ -23,9 +26,32 @@ public class RagServiceImpl implements RagService {
         List<SearchResult> chunks =
                 vectorService.search(question);
 
-        String context = chunks.stream()
-                .map(SearchResult::getContent)
-                .collect(Collectors.joining("\n\n"));
+        StringBuilder context = new StringBuilder();
+
+        for (SearchResult chunk : chunks) {
+
+            Document document = documentRepository.findById(
+                    UUID.fromString(chunk.getDocumentId())
+            ).orElse(null);
+
+            String filename =
+                    document != null
+                            ? document.getFilename()
+                            : "Unknown document";
+
+            context.append("""
+                    Document:
+                    %s
+
+                    %s
+
+                    ----------------------------
+
+                    """.formatted(
+                    filename,
+                    chunk.getContent()
+            ));
+        }
 
         String prompt = """
                 You are an AI assistant that answers questions ONLY using the provided context.
@@ -40,7 +66,12 @@ public class RagServiceImpl implements RagService {
                 %s
 
                 Answer:
-                """.formatted(context, question);
+                """.formatted(
+                context.toString(),
+                question
+        );
+
+        System.out.println(prompt);
 
         return aiService.generateResponse(prompt);
     }

@@ -46,5 +46,5 @@ Authorization: Bearer {{adminJwt}}
 Content-Type: application/json
 
 {
-  "question": "Where are document embeddings stored?"
+  "question": "Where is the production environment hosted?"
 }
