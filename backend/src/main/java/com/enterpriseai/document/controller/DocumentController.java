@@ -4,10 +4,12 @@ import com.enterpriseai.document.dto.DocumentResponse;
 import com.enterpriseai.document.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/documents")
@@ -26,6 +28,14 @@ public class DocumentController {
     @GetMapping
     public List<DocumentResponse> list() {
         return documentService.list();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+
+        documentService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

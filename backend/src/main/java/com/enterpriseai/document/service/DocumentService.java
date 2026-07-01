@@ -13,4 +13,5 @@ public interface DocumentService {
         List<DocumentResponse> list();
 
         void delete(UUID id);
+
 }

@@ -13,8 +13,8 @@ import { DocumentService } from '../../../../core/services/document.service';
 })
 export class DocumentList implements OnInit {
 
-  //documents: DocumentResponse[] = [];
-  documents: any[] = [];
+  documents: DocumentResponse[] = [];
+
 
   constructor(
     private documentService: DocumentService,
@@ -63,4 +63,17 @@ export class DocumentList implements OnInit {
 
   }
 
+  deleteDocument(id: string): void {
+    this.documentService.delete(id).subscribe({
+
+      next: () => {
+        this.loadDocuments();
+      },
+
+      error: (error) => {
+        console.error(error);
+      }
+
+    });
+  }
 }

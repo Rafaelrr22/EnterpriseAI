@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -103,5 +104,39 @@ public class DocumentServiceImpl implements DocumentService {
                 document.getSize(),
                 document.getUploadedAt()
         );
+    }
+
+    @Override
+    @Transactional
+    public void delete(UUID id) {
+
+        User user = authenticatedUserService.getCurrentUser();
+
+        Document document = documentRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Document not found.")
+                );
+
+        System.out.println("Current user: " + user.getId());
+
+        System.out.println("Document owner: " +
+                document.getUploadedBy().getId());
+
+        System.out.println(
+                user.getId().equals(document.getUploadedBy().getId())
+        );
+
+
+        if (!document.getUploadedBy().getId().equals(user.getId())) {
+            throw new SecurityException("You are not allowed to delete this document."); //Substituir
+        }
+
+        File file = new File(document.getStorePath());
+
+        if (file.exists() && !file.delete()) {
+            throw new RuntimeException("Failed to delete file.");
+        }
+
+        documentRepository.delete(document);
     }
 }

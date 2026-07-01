@@ -1,5 +1,0 @@
-EnterpriseAI stores document embeddings in Qdrant.
-
-Apache Tika is used for document parsing.
-
-Ollama generates embeddings using the nomic-embed-text model.

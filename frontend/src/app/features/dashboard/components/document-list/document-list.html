@@ -25,6 +25,13 @@
       Uploaded:
       {{ document.uploadedAt | date:'dd/MM/yyyy HH:mm' }}
 
+
+      <button
+        type="button"
+        (click)="deleteDocument(document.id)">
+        Delete
+      </button>
+
     </li>
 
   </ul>
