@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DocumentService } from '../../../../core/services/document.service';
@@ -13,6 +13,9 @@ import { DocumentService } from '../../../../core/services/document.service';
   styleUrl: './upload-document.css'
 })
 export class UploadDocument {
+
+  @ViewChild('fileInput')
+  fileInput!: ElementRef<HTMLInputElement>;
 
   selectedFile: File | null = null;
 
@@ -43,6 +46,12 @@ export class UploadDocument {
       next: (response) => {
 
         console.log(response);
+
+        this.documentService.notifyDocumentsChanged();
+
+        this.selectedFile = null;
+
+        this.fileInput.nativeElement.value = '';
 
       },
 
