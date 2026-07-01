@@ -50,21 +50,6 @@ public class DocumentServiceImpl implements DocumentService {
             throw new RuntimeException("Failed to store file.", e);
         }
 
-        String extractedText = documentParser.parse(new File(filePath));
-
-        List<String> chunks = documentChunker.chunk(extractedText);
-
-        for (String chunk : chunks) {
-
-            List<Double> embedding =
-                    embeddingService.generateEmbedding(chunk);
-
-            vectorService.store(
-                    chunk,
-                    embedding
-            );
-        }
-
         User user = authenticatedUserService.getCurrentUser();
 
         Document document = Document.builder()
@@ -76,9 +61,29 @@ public class DocumentServiceImpl implements DocumentService {
                 .uploadedBy(user)
                 .build();
 
-        Document savedDocument = documentRepository.save(document);
+        Document savedDocument =
+                documentRepository.save(document);
+
+        String extractedText =
+                documentParser.parse(new File(filePath));
+
+        List<String> chunks =
+                documentChunker.chunk(extractedText);
+
+        for (String chunk : chunks) {
+
+            List<Double> embedding =
+                    embeddingService.generateEmbedding(chunk);
+
+            vectorService.store(
+                    savedDocument.getId(),
+                    chunk,
+                    embedding
+            );
+        }
 
         return toResponse(savedDocument);
+
     }
 
     @Override
@@ -86,13 +91,11 @@ public class DocumentServiceImpl implements DocumentService {
 
         User user = authenticatedUserService.getCurrentUser();
 
-        System.out.println("Current user: " + user.getId());
-        System.out.println("Current email: " + user.getEmail());
-
         return documentRepository.findByUploadedBy(user)
                 .stream()
                 .map(this::toResponse)
                 .toList();
+
     }
 
     private DocumentResponse toResponse(Document document) {
@@ -104,6 +107,7 @@ public class DocumentServiceImpl implements DocumentService {
                 document.getSize(),
                 document.getUploadedAt()
         );
+
     }
 
     @Override
@@ -117,18 +121,10 @@ public class DocumentServiceImpl implements DocumentService {
                         new IllegalArgumentException("Document not found.")
                 );
 
-        System.out.println("Current user: " + user.getId());
-
-        System.out.println("Document owner: " +
-                document.getUploadedBy().getId());
-
-        System.out.println(
-                user.getId().equals(document.getUploadedBy().getId())
-        );
-
-
         if (!document.getUploadedBy().getId().equals(user.getId())) {
-            throw new SecurityException("You are not allowed to delete this document."); //Substituir
+            throw new SecurityException(
+                    "You are not allowed to delete this document."
+            );
         }
 
         File file = new File(document.getStorePath());
@@ -137,6 +133,10 @@ public class DocumentServiceImpl implements DocumentService {
             throw new RuntimeException("Failed to delete file.");
         }
 
+        vectorService.deleteByDocumentId(document.getId());
+
         documentRepository.delete(document);
+
     }
+
 }

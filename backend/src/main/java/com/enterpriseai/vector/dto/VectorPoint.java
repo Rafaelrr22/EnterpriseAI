@@ -12,4 +12,6 @@ public class VectorPoint {
     private String id;
     private List<Double> vector;
     private String content;
+    private String documentId;
+
 }

@@ -21,10 +21,12 @@ public class VectorServiceImpl implements VectorService {
     public void initializeCollection() {
 
         qdrantClient.createCollection();
+
     }
 
     @Override
     public void store(
+            UUID documentId,
             String content,
             List<Double> embedding
     ) {
@@ -32,19 +34,29 @@ public class VectorServiceImpl implements VectorService {
         VectorPoint point = new VectorPoint(
                 UUID.randomUUID().toString(),
                 embedding,
-                content
+                content,
+                documentId.toString()
         );
 
         qdrantClient.upsertPoint(point);
+
+    }
+
+    @Override
+    public void deleteByDocumentId(UUID documentId) {
+
+        qdrantClient.deletePointsByDocumentId(documentId);
+
     }
 
     @Override
     public List<String> search(String query) {
 
-        List<Double> embedding = embeddingService.generateEmbedding(query);
+        List<Double> embedding =
+                embeddingService.generateEmbedding(query);
 
         return qdrantClient.search(embedding);
-    }
 
+    }
 
 }

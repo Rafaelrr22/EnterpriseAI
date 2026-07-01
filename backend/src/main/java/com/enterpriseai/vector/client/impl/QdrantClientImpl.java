@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -40,6 +41,7 @@ public class QdrantClientImpl implements QdrantClient {
                 .body(body)
                 .retrieve()
                 .toBodilessEntity();
+
     }
 
     @Override
@@ -52,20 +54,48 @@ public class QdrantClientImpl implements QdrantClient {
                                 "id", point.getId(),
                                 "vector", point.getVector(),
                                 "payload", Map.of(
-                                        "content", point.getContent()
+                                        "content", point.getContent(),
+                                        "documentId", point.getDocumentId()
                                 )
                         )
                 }
         );
 
-
         restClient.put()
-                .uri(baseUrl + "/collections/" +
-                        collectionName +
-                        "/points")
+                .uri(baseUrl + "/collections/"
+                        + collectionName
+                        + "/points")
                 .body(requestBody)
                 .retrieve()
                 .toBodilessEntity();
+
+    }
+
+    @Override
+    public void deletePointsByDocumentId(UUID documentId) {
+
+        Map<String, Object> requestBody = Map.of(
+                "filter", Map.of(
+                        "must", List.of(
+                                Map.of(
+                                        "key", "documentId",
+                                        "match", Map.of(
+                                                "value",
+                                                documentId.toString()
+                                        )
+                                )
+                        )
+                )
+        );
+
+        restClient.post()
+                .uri(baseUrl + "/collections/"
+                        + collectionName
+                        + "/points/delete")
+                .body(requestBody)
+                .retrieve()
+                .toBodilessEntity();
+
     }
 
     @Override
@@ -78,13 +108,12 @@ public class QdrantClientImpl implements QdrantClient {
         );
 
         Map response = restClient.post()
-                .uri(baseUrl + "/collections/" +
-                        collectionName +
-                        "/points/search")
+                .uri(baseUrl + "/collections/"
+                        + collectionName
+                        + "/points/search")
                 .body(requestBody)
                 .retrieve()
                 .body(Map.class);
-
 
         List<String> results = new ArrayList<>();
 
@@ -99,8 +128,11 @@ public class QdrantClientImpl implements QdrantClient {
             results.add(
                     payload.get("content").toString()
             );
+
         }
 
         return results;
+
     }
+
 }
