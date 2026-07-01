@@ -1,5 +1,7 @@
 package com.enterpriseai.vector.service;
 
+import com.enterpriseai.vector.dto.SearchResult;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +17,6 @@ public interface VectorService {
 
     void deleteByDocumentId(UUID documentId);
 
-    List<String> search(String query);
+    List<SearchResult> search(String query);
 
 }

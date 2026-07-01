@@ -1,6 +1,7 @@
 package com.enterpriseai.vector.client.impl;
 
 import com.enterpriseai.vector.client.QdrantClient;
+import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.dto.VectorPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -99,7 +100,7 @@ public class QdrantClientImpl implements QdrantClient {
     }
 
     @Override
-    public List<String> search(List<Double> embedding) {
+    public List<SearchResult> search(List<Double> embedding) {
 
         Map<String, Object> requestBody = Map.of(
                 "vector", embedding,
@@ -115,7 +116,7 @@ public class QdrantClientImpl implements QdrantClient {
                 .retrieve()
                 .body(Map.class);
 
-        List<String> results = new ArrayList<>();
+        List<SearchResult> results = new ArrayList<>();
 
         List<Map<String, Object>> points =
                 (List<Map<String, Object>>) response.get("result");
@@ -125,8 +126,13 @@ public class QdrantClientImpl implements QdrantClient {
             Map<String, Object> payload =
                     (Map<String, Object>) point.get("payload");
 
+            Object documentId = payload.get("documentId");
+
             results.add(
-                    payload.get("content").toString()
+                    new SearchResult(
+                            payload.get("content").toString(),
+                            documentId != null ? documentId.toString() : null
+                    )
             );
 
         }

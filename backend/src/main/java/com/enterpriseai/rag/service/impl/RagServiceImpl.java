@@ -2,11 +2,13 @@ package com.enterpriseai.rag.service.impl;
 
 import com.enterpriseai.ai.service.AiService;
 import com.enterpriseai.rag.service.RagService;
+import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.service.VectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +20,12 @@ public class RagServiceImpl implements RagService {
     @Override
     public String ask(String question) {
 
-        List<String> chunks =
+        List<SearchResult> chunks =
                 vectorService.search(question);
 
-        String context =
-                String.join("\n\n", chunks);
+        String context = chunks.stream()
+                .map(SearchResult::getContent)
+                .collect(Collectors.joining("\n\n"));
 
         String prompt = """
                 You are an AI assistant that answers questions ONLY using the provided context.

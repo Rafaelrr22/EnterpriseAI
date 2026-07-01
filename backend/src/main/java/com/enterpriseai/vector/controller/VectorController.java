@@ -1,6 +1,7 @@
 package com.enterpriseai.vector.controller;
 
 import com.enterpriseai.vector.dto.SearchRequest;
+import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.service.VectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class VectorController {
     }
 
     @PostMapping("/search")
-    public List<String> search(
+    public List<SearchResult> search(
             @RequestBody SearchRequest request
     ) {
 

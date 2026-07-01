@@ -2,6 +2,7 @@ package com.enterpriseai.vector.service.impl;
 
 import com.enterpriseai.ai.service.EmbeddingService;
 import com.enterpriseai.vector.client.QdrantClient;
+import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.dto.VectorPoint;
 import com.enterpriseai.vector.service.VectorService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class VectorServiceImpl implements VectorService {
     }
 
     @Override
-    public List<String> search(String query) {
+    public List<SearchResult> search(String query) {
 
         List<Double> embedding =
                 embeddingService.generateEmbedding(query);
