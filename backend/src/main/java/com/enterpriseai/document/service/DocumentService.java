@@ -1,6 +1,7 @@
 package com.enterpriseai.document.service;
 
 import com.enterpriseai.document.dto.DocumentResponse;
+import com.enterpriseai.document.entity.Document;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -13,5 +14,7 @@ public interface DocumentService {
         List<DocumentResponse> list();
 
         void delete(UUID id);
+
+        Document download(UUID id);
 
 }

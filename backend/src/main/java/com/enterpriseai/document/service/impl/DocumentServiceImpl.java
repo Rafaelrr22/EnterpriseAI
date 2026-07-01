@@ -80,6 +80,7 @@ public class DocumentServiceImpl implements DocumentService {
                     chunk,
                     embedding
             );
+
         }
 
         return toResponse(savedDocument);
@@ -136,6 +137,27 @@ public class DocumentServiceImpl implements DocumentService {
         vectorService.deleteByDocumentId(document.getId());
 
         documentRepository.delete(document);
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Document download(UUID id) {
+
+        User user = authenticatedUserService.getCurrentUser();
+
+        Document document = documentRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Document not found.")
+                );
+
+        if (!document.getUploadedBy().getId().equals(user.getId())) {
+            throw new SecurityException(
+                    "You are not allowed to access this document."
+            );
+        }
+
+        return document;
 
     }
 
