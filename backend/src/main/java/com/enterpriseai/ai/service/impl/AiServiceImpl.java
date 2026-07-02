@@ -21,15 +21,21 @@ public class AiServiceImpl implements AiService {
     @Override
     public String generateResponse(String prompt) {
 
-
         OllamaRequest request = new OllamaRequest(
                 model,
                 prompt,
                 false
         );
 
+        long start = System.currentTimeMillis();
+
         OllamaResponse response = ollamaClient.generate(request);
 
+        System.out.println(
+                "Ollama response time: "
+                        + (System.currentTimeMillis() - start)
+                        + " ms"
+        );
 
         return response.getResponse();
     }

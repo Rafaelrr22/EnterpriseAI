@@ -1,5 +1,6 @@
-package com.enterpriseai.ai.client;
+package com.enterpriseai.ai.client.Impl;
 
+import com.enterpriseai.ai.client.OllamaClient;
 import com.enterpriseai.ai.dto.EmbeddingRequest;
 import com.enterpriseai.ai.dto.EmbeddingResponse;
 import com.enterpriseai.ai.dto.OllamaRequest;

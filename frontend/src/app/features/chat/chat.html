@@ -1,0 +1,39 @@
+<div>
+
+  <h3>AI Assistant</h3>
+
+  <input
+    type="text"
+    [(ngModel)]="question"
+    placeholder="Ask a question about your documents">
+
+  <button
+    type="button"
+    (click)="ask()"
+    [disabled]="loading">
+
+    {{ loading ? 'Thinking...' : 'Ask' }}
+
+  </button>
+
+  <div *ngIf="answer">
+
+    <h4>Answer</h4>
+
+    <p>{{ answer }}</p>
+
+    <h4>Sources</h4>
+
+    <ul>
+
+      <li *ngFor="let source of sources">
+
+        {{ source }}
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
