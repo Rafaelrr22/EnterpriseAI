@@ -28,6 +28,7 @@ public class VectorServiceImpl implements VectorService {
     @Override
     public void store(
             UUID documentId,
+            UUID userId,
             String content,
             List<Double> embedding
     ) {
@@ -36,7 +37,8 @@ public class VectorServiceImpl implements VectorService {
                 UUID.randomUUID().toString(),
                 embedding,
                 content,
-                documentId.toString()
+                documentId.toString(),
+                userId.toString()
         );
 
         qdrantClient.upsertPoint(point);
@@ -51,12 +53,18 @@ public class VectorServiceImpl implements VectorService {
     }
 
     @Override
-    public List<SearchResult> search(String query) {
+    public List<SearchResult> search(
+            String query,
+            UUID userId
+    ) {
 
         List<Double> embedding =
                 embeddingService.generateEmbedding(query);
 
-        return qdrantClient.search(embedding);
+        return qdrantClient.search(
+                embedding,
+                userId
+        );
 
     }
 

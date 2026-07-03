@@ -1,10 +1,12 @@
 package com.enterpriseai.rag.service.impl;
 
 import com.enterpriseai.ai.service.AiService;
+import com.enterpriseai.common.security.AuthenticatedUserService;
 import com.enterpriseai.document.entity.Document;
 import com.enterpriseai.document.repository.DocumentRepository;
 import com.enterpriseai.rag.dto.RagResponse;
 import com.enterpriseai.rag.service.RagService;
+import com.enterpriseai.user.entity.User;
 import com.enterpriseai.vector.dto.SearchResult;
 import com.enterpriseai.vector.service.VectorService;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +24,18 @@ public class RagServiceImpl implements RagService {
     private final VectorService vectorService;
     private final AiService aiService;
     private final DocumentRepository documentRepository;
+    private final AuthenticatedUserService authenticatedUserService;
 
     @Override
     public RagResponse ask(String question) {
 
+        User user = authenticatedUserService.getCurrentUser();
+
         List<SearchResult> chunks =
-                vectorService.search(question);
+                vectorService.search(
+                        question,
+                        user.getId()
+                );
 
         Set<String> sources = new LinkedHashSet<>();
         StringBuilder context = new StringBuilder();
@@ -86,5 +94,7 @@ public class RagServiceImpl implements RagService {
                 answer,
                 List.copyOf(sources)
         );
+
     }
+
 }

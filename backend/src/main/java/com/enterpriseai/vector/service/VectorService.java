@@ -11,12 +11,16 @@ public interface VectorService {
 
     void store(
             UUID documentId,
+            UUID userId,
             String content,
             List<Double> embedding
     );
 
     void deleteByDocumentId(UUID documentId);
 
-    List<SearchResult> search(String query);
+    List<SearchResult> search(
+            String query,
+            UUID userId
+    );
 
 }

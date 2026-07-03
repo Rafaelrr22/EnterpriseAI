@@ -56,7 +56,8 @@ public class QdrantClientImpl implements QdrantClient {
                                 "vector", point.getVector(),
                                 "payload", Map.of(
                                         "content", point.getContent(),
-                                        "documentId", point.getDocumentId()
+                                        "documentId", point.getDocumentId(),
+                                        "userId", point.getUserId()
                                 )
                         )
                 }
@@ -100,12 +101,26 @@ public class QdrantClientImpl implements QdrantClient {
     }
 
     @Override
-    public List<SearchResult> search(List<Double> embedding) {
+    public List<SearchResult> search(
+            List<Double> embedding,
+            UUID userId
+    ) {
 
         Map<String, Object> requestBody = Map.of(
                 "vector", embedding,
                 "limit", 3,
-                "with_payload", true
+                "with_payload", true,
+                "filter", Map.of(
+                        "must", List.of(
+                                Map.of(
+                                        "key", "userId",
+                                        "match", Map.of(
+                                                "value",
+                                                userId.toString()
+                                        )
+                                )
+                        )
+                )
         );
 
         Map response = restClient.post()
@@ -131,7 +146,9 @@ public class QdrantClientImpl implements QdrantClient {
             results.add(
                     new SearchResult(
                             payload.get("content").toString(),
-                            documentId != null ? documentId.toString() : null
+                            documentId != null
+                                    ? documentId.toString()
+                                    : null
                     )
             );
 

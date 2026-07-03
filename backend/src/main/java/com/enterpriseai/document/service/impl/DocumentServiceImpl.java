@@ -77,6 +77,7 @@ public class DocumentServiceImpl implements DocumentService {
 
             vectorService.store(
                     savedDocument.getId(),
+                    user.getId(),
                     chunk,
                     embedding
             );

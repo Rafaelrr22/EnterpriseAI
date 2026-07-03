@@ -13,5 +13,6 @@ public class VectorPoint {
     private List<Double> vector;
     private String content;
     private String documentId;
+    private String userId;
 
 }

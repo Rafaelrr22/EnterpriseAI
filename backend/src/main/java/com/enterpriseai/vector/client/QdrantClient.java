@@ -14,6 +14,9 @@ public interface QdrantClient {
 
     void deletePointsByDocumentId(UUID documentId);
 
-    List<SearchResult> search(List<Double> embedding);
+    List<SearchResult> search(
+            List<Double> embedding,
+            UUID userId
+    );
 
 }
