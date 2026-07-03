@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { RagService } from '../../core/services/rag.service';
+import { ChatMessage } from '../../core/models/chat-message';
 
 @Component({
   selector: 'app-chat',
@@ -18,9 +19,7 @@ export class Chat {
 
   question = '';
 
-  answer = '';
-
-  sources: string[] = [];
+  messages: ChatMessage[] = [];
 
   loading = false;
 
@@ -48,9 +47,17 @@ export class Chat {
 
           console.log('Response received:', response);
 
-          this.answer = response.answer;
+          this.messages.unshift({
 
-          this.sources = response.sources;
+            question: this.question,
+
+            answer: response.answer,
+
+            sources: response.sources,
+
+            timestamp: new Date()
+
+          });
 
           this.question = '';
 

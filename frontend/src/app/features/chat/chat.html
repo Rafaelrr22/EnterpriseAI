@@ -5,6 +5,7 @@
   <input
     type="text"
     [(ngModel)]="question"
+    (keyup.enter)="ask()"
     placeholder="Ask a question about your documents">
 
   <button
@@ -16,23 +17,65 @@
 
   </button>
 
-  <div *ngIf="answer">
+  <hr>
 
-    <h4>Answer</h4>
+  <div
+    class="chat-history"
+    *ngIf="messages.length > 0">
 
-    <p>{{ answer }}</p>
+    <div
+      class="chat-message"
+      *ngFor="let message of messages">
 
-    <h4>Sources</h4>
+      <h4>
 
-    <ul>
+        👤 You
 
-      <li *ngFor="let source of sources">
+        <small>
 
-        {{ source }}
+          {{ message.timestamp | date:'dd/MM/yyyy HH:mm:ss' }}
 
-      </li>
+        </small>
 
-    </ul>
+      </h4>
+
+      <p>
+
+        {{ message.question }}
+
+      </p>
+
+      <h4>
+
+        🤖 EnterpriseAI
+
+      </h4>
+
+      <p>
+
+        {{ message.answer }}
+
+      </p>
+
+      <h4>
+
+        Sources
+
+      </h4>
+
+      <ul>
+
+        <li *ngFor="let source of message.sources">
+
+          {{ source }}
+
+        </li>
+
+      </ul>
+
+      <hr>
+
+    </div>
 
   </div>
 
