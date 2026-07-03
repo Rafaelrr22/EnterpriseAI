@@ -1,23 +1,31 @@
-<div>
+<div class="chat-card">
 
-  <h3>AI Assistant</h3>
+  <h3>💬 AI Assistant</h3>
 
-  <input
-    type="text"
-    [(ngModel)]="question"
-    (keyup.enter)="ask()"
-    placeholder="Ask a question about your documents">
+  <p class="chat-description">
 
-  <button
-    type="button"
-    (click)="ask()"
-    [disabled]="loading">
+    Ask anything about your uploaded documents.
 
-    {{ loading ? 'Thinking...' : 'Ask' }}
+  </p>
 
-  </button>
+  <div class="chat-input">
 
-  <hr>
+    <input
+      type="text"
+      [(ngModel)]="question"
+      (keyup.enter)="ask()"
+      placeholder="Ask a question about your documents">
+
+    <button
+      type="button"
+      (click)="ask()"
+      [disabled]="loading">
+
+      {{ loading ? 'Thinking...' : 'Ask' }}
+
+    </button>
+
+  </div>
 
   <div
     class="chat-history"
@@ -27,9 +35,13 @@
       class="chat-message"
       *ngFor="let message of messages">
 
-      <h4>
+      <div class="message-header">
 
-        👤 You
+        <span>
+
+          👤 <strong>You</strong>
+
+        </span>
 
         <small>
 
@@ -37,43 +49,45 @@
 
         </small>
 
-      </h4>
+      </div>
 
-      <p>
+      <div class="user-message">
 
         {{ message.question }}
 
-      </p>
+      </div>
 
-      <h4>
+      <div class="message-header">
 
-        🤖 EnterpriseAI
+        <span>
 
-      </h4>
+          🤖 <strong>EnterpriseAI</strong>
 
-      <p>
+        </span>
+
+      </div>
+
+      <div class="ai-message">
 
         {{ message.answer }}
 
-      </p>
+      </div>
 
-      <h4>
+      <div class="sources">
 
-        Sources
+        <strong>📄 Sources</strong>
 
-      </h4>
+        <ul>
 
-      <ul>
+          <li *ngFor="let source of message.sources">
 
-        <li *ngFor="let source of message.sources">
+            {{ source }}
 
-          {{ source }}
+          </li>
 
-        </li>
+        </ul>
 
-      </ul>
-
-      <hr>
+      </div>
 
     </div>
 

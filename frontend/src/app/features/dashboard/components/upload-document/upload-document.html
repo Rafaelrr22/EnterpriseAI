@@ -1,18 +1,22 @@
-<div>
+<div class="upload-card">
 
-  <h3>Upload Document</h3>
+  <h3>📤 Upload Document</h3>
 
-  <input
-    #fileInput
-    type="file"
-    (change)="onFileSelected($event)">
+  <div class="upload-actions">
 
-  <button
-    type="button"
-    (click)="upload()">
+    <input
+      #fileInput
+      type="file"
+      (change)="onFileSelected($event)">
 
-    Upload
+    <button
+      type="button"
+      (click)="upload()">
 
-  </button>
+      Upload
+
+    </button>
+
+  </div>
 
 </div>
