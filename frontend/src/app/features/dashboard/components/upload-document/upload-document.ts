@@ -19,6 +19,8 @@ export class UploadDocument {
 
   selectedFile: File | null = null;
 
+  selectedFileName = 'No file selected';
+
   constructor(
     private documentService: DocumentService
   ) {}
@@ -28,10 +30,17 @@ export class UploadDocument {
     const input = event.target as HTMLInputElement;
 
     if (!input.files?.length) {
+
+      this.selectedFile = null;
+      this.selectedFileName = 'No file selected';
+
       return;
+
     }
 
     this.selectedFile = input.files[0];
+
+    this.selectedFileName = this.selectedFile.name;
 
   }
 
@@ -51,6 +60,8 @@ export class UploadDocument {
 
         this.selectedFile = null;
 
+        this.selectedFileName = 'No file selected';
+
         this.fileInput.nativeElement.value = '';
 
       },
@@ -62,6 +73,39 @@ export class UploadDocument {
       }
 
     });
+
+  }
+
+  onDragOver(event: DragEvent): void {
+
+    event.preventDefault();
+
+  }
+
+  onDrop(event: DragEvent): void {
+
+    event.preventDefault();
+
+    const files = event.dataTransfer?.files;
+
+    if (!files?.length) {
+      return;
+    }
+
+    const file = files[0];
+
+    if (file.type !== 'application/pdf') {
+
+      // Test
+      alert('Only PDF files are supported.');
+
+      return;
+
+    }
+
+    this.selectedFile = file;
+
+    this.selectedFileName = file.name;
 
   }
 

@@ -1,5 +1,5 @@
 .upload-card {
-  padding: 20px;
+  padding: 24px;
 
   background-color: #ffffff;
 
@@ -7,36 +7,38 @@
   border-radius: 12px;
 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-
-  margin-bottom: 24px;
 }
 
 .upload-card h3 {
-  margin: 0 0 20px;
+  margin: 0 0 8px;
 
   color: #1e293b;
 }
 
-.upload-actions {
+.upload-description {
+  margin-bottom: 24px;
+
+  color: #64748b;
+}
+
+.file-selector {
   display: flex;
   align-items: center;
 
   gap: 16px;
 
+  margin-bottom: 20px;
+
   flex-wrap: wrap;
 }
 
-.upload-actions input[type="file"] {
-  flex: 1;
-}
-
-.upload-actions button {
+.choose-button {
   padding: 10px 18px;
 
   border: none;
   border-radius: 8px;
 
-  background-color: #2563eb;
+  background-color: #475569;
   color: #ffffff;
 
   font-weight: 600;
@@ -48,8 +50,95 @@
     transform 0.2s ease;
 }
 
-.upload-actions button:hover {
+.choose-button:hover {
+  background-color: #334155;
+
+  transform: translateY(-1px);
+}
+
+.selected-file {
+  color: #475569;
+
+  font-size: 0.95rem;
+
+  word-break: break-word;
+}
+
+.upload-button {
+  padding: 12px 24px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #2563eb;
+  color: #ffffff;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.upload-button:hover:not(:disabled) {
   background-color: #1d4ed8;
 
   transform: translateY(-1px);
+}
+
+.upload-button:disabled {
+  background-color: #94a3b8;
+
+  cursor: not-allowed;
+}
+
+.drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 36px;
+
+  margin-bottom: 24px;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+
+  background-color: #f8fafc;
+
+  text-align: center;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.drop-zone:hover {
+  border-color: #2563eb;
+
+  background-color: #eff6ff;
+
+  transform: translateY(-2px);
+}
+
+.drop-icon {
+  font-size: 3rem;
+}
+
+.drop-zone p {
+  margin: 0;
+
+  color: #334155;
+
+  font-weight: 600;
+}
+
+.drop-zone span {
+  color: #64748b;
 }

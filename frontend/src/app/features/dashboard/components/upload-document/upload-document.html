@@ -2,21 +2,67 @@
 
   <h3>📤 Upload Document</h3>
 
-  <div class="upload-actions">
+  <p class="upload-description">
+
+    Upload PDF documents to extend your enterprise knowledge base.
+
+  </p>
+
+  <div
+    class="drop-zone"
+    (dragover)="onDragOver($event)"
+    (drop)="onDrop($event)">
+
+    <div class="drop-icon">
+
+      📄
+
+    </div>
+
+    <p>
+
+      Drag & Drop your PDF here
+
+    </p>
+
+    <span>
+
+      or
+
+    </span>
 
     <input
       #fileInput
       type="file"
-      (change)="onFileSelected($event)">
+      accept=".pdf"
+      (change)="onFileSelected($event)"
+      hidden>
 
     <button
       type="button"
-      (click)="upload()">
+      class="choose-button"
+      (click)="fileInput.click()">
 
-      Upload
+      Choose File
 
     </button>
 
+    <p class="selected-file">
+
+      {{ selectedFileName }}
+
+    </p>
+
   </div>
+
+  <button
+    type="button"
+    class="upload-button"
+    (click)="upload()"
+    [disabled]="!selectedFile">
+
+    Upload
+
+  </button>
 
 </div>
