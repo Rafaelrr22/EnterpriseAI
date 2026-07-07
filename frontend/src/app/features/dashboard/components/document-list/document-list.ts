@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DocumentResponse } from '../../../../core/models/document-response';
 import { DocumentService } from '../../../../core/services/document.service';
-
+import { NotificationService } from '../../../../core/services/notification.service';
 @Component({
   selector: 'app-document-list',
   standalone: true,
@@ -17,6 +17,7 @@ export class DocumentList implements OnInit {
 
   constructor(
     private documentService: DocumentService,
+    private notificationService: NotificationService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -35,27 +36,11 @@ export class DocumentList implements OnInit {
 
   loadDocuments(): void {
 
-    console.log('Loading documents...');
-
     this.documentService.list().subscribe({
-
-      /*
-      next: (documents) => {
-
-        console.log('Documents:', documents);
-
-        this.documents = documents;
-
-        console.log('Length:', this.documents.length);
-
-      },
-      */
 
       next: (documents) => {
 
         this.documents = [...documents];
-
-        console.log('Assigned:', this.documents);
 
         this.cdr.detectChanges();
 
@@ -63,7 +48,7 @@ export class DocumentList implements OnInit {
 
       error: (error) => {
 
-        console.error('Error:', error);
+        console.error(error);
 
       }
 
@@ -73,17 +58,27 @@ export class DocumentList implements OnInit {
 
   deleteDocument(id: string): void {
 
+    if (!confirm('Delete this document?')) {
+      return;
+    }
+
     this.documentService.delete(id).subscribe({
 
       next: () => {
 
         this.documentService.notifyDocumentsChanged();
 
+        this.notificationService.success('Document deleted successfully.');
+
       },
 
       error: (error) => {
 
         console.error(error);
+
+        this.notificationService.error(
+          'Failed to delete document.'
+        );
 
       }
 
@@ -114,6 +109,10 @@ export class DocumentList implements OnInit {
         error: (error) => {
 
           console.error(error);
+
+          this.notificationService.error(
+            'Failed to download document.'
+          );
 
         }
 

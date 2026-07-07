@@ -8,4 +8,6 @@ export interface ChatMessage {
 
   timestamp: Date;
 
+  loading?: boolean;
+
 }

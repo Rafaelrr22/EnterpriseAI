@@ -28,6 +28,33 @@
   </div>
 
   <div
+    class="chat-actions"
+    *ngIf="messages.length > 0">
+
+    <button
+      type="button"
+      class="clear-button"
+      (click)="clearConversation()">
+
+      🗑 Clear conversation
+
+    </button>
+
+  </div>
+
+  <div
+    class="empty-chat"
+    *ngIf="messages.length === 0">
+
+    💬 No questions yet.
+
+    <br>
+
+    Start chatting with EnterpriseAI.
+
+  </div>
+
+  <div
     class="chat-history"
     *ngIf="messages.length > 0">
 
@@ -69,23 +96,48 @@
 
       <div class="ai-message">
 
-        {{ message.answer }}
+        <ng-container *ngIf="!message.loading">
+
+          {{ message.answer }}
+
+        </ng-container>
+
+        <ng-container *ngIf="message.loading">
+
+          ⏳ Thinking...
+
+        </ng-container>
 
       </div>
 
       <div class="sources">
 
-        <strong>📄 Sources</strong>
+        <strong>Sources</strong>
 
-        <ul>
+        <div class="source-list">
 
-          <li *ngFor="let source of message.sources">
+          <span
+            class="source-badge"
+            *ngFor="let source of message.sources">
 
-            {{ source }}
+            📄 {{ source }}
 
-          </li>
+          </span>
 
-        </ul>
+        </div>
+
+      </div>
+
+      <div class="answer-actions">
+
+        <button
+          type="button"
+          class="copy-button"
+          (click)="copyAnswer(message.answer)">
+
+          📋 Copy
+
+        </button>
 
       </div>
 

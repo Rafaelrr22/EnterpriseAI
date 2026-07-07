@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   Global Styles
+   ========================================================================== */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Material SnackBars
+   ========================================================================== */
+
+.success-snackbar .mat-mdc-snackbar-surface {
+  background-color: #16a34a !important;
+}
+
+.error-snackbar .mat-mdc-snackbar-surface {
+  background-color: #dc2626 !important;
+}
+
+.info-snackbar .mat-mdc-snackbar-surface {
+  background-color: #2563eb !important;
+}

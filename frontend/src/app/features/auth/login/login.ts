@@ -9,6 +9,7 @@ import {
 
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import {NotificationService} from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class Login {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
 
@@ -49,8 +51,9 @@ export class Login {
 
         this.authService.saveToken(response.token);
 
-        console.log('JWT:', response.token);
-        console.log('Stored:', localStorage.getItem('token'));
+        this.notificationService.success(
+          'Login successful.'
+        );
 
         this.router.navigate(['/dashboard']);
 
@@ -59,6 +62,10 @@ export class Login {
       error: (error) => {
 
         console.error(error);
+
+        this.notificationService.error(
+          'Invalid email or password.'
+        );
 
       }
 

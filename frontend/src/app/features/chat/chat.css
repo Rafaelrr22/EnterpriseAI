@@ -148,3 +148,85 @@
   color: #334155;
 }
 
+.chat-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-bottom: 20px;
+}
+
+.clear-button {
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #ef4444;
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.clear-button:hover {
+  background: #dc2626;
+}
+
+.empty-chat {
+  padding: 40px;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+.source-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+.source-badge {
+  padding: 6px 12px;
+
+  background: #dbeafe;
+
+  color: #1d4ed8;
+
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+}
+
+.answer-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 16px;
+}
+
+.copy-button {
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.copy-button:hover {
+  background: #1d4ed8;
+}
+

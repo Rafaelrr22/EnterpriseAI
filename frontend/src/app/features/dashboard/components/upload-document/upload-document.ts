@@ -1,7 +1,14 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 
 import { DocumentService } from '../../../../core/services/document.service';
+import {NotificationService} from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-upload-document',
@@ -21,8 +28,12 @@ export class UploadDocument {
 
   selectedFileName = 'No file selected';
 
+  uploading = false;
+
   constructor(
-    private documentService: DocumentService
+    private documentService: DocumentService,
+    private notificationService: NotificationService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   onFileSelected(event: Event): void {
@@ -39,7 +50,6 @@ export class UploadDocument {
     }
 
     this.selectedFile = input.files[0];
-
     this.selectedFileName = this.selectedFile.name;
 
   }
@@ -50,25 +60,38 @@ export class UploadDocument {
       return;
     }
 
+    this.uploading = true;
+
     this.documentService.upload(this.selectedFile).subscribe({
 
-      next: (response) => {
-
-        console.log(response);
-
-        this.documentService.notifyDocumentsChanged();
+      next: () => {
 
         this.selectedFile = null;
-
         this.selectedFileName = 'No file selected';
 
         this.fileInput.nativeElement.value = '';
+
+        this.uploading = false;
+
+        this.cdr.detectChanges();
+
+        this.documentService.notifyDocumentsChanged();
+
+        this.notificationService.success(
+          'Document uploaded successfully.'
+        );
 
       },
 
       error: (error) => {
 
         console.error(error);
+
+        this.notificationService.error(
+          'Failed to upload document.'
+        );
+
+        this.uploading = false;
 
       }
 
@@ -96,15 +119,15 @@ export class UploadDocument {
 
     if (file.type !== 'application/pdf') {
 
-      // Test
-      alert('Only PDF files are supported.');
+      this.notificationService.error(
+        'Only PDF documents are supported.'
+      );
 
       return;
 
     }
 
     this.selectedFile = file;
-
     this.selectedFileName = file.name;
 
   }

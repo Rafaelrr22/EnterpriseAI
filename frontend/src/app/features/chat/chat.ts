@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { RagService } from '../../core/services/rag.service';
 import { ChatMessage } from '../../core/models/chat-message';
+import {NotificationService} from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-chat',
@@ -25,6 +26,7 @@ export class Chat {
 
   constructor(
     private ragService: RagService,
+    private notificationService: NotificationService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -38,46 +40,85 @@ export class Chat {
       return;
     }
 
+    const question = this.question;
+
+    const message: ChatMessage = {
+
+      question,
+
+      answer: '',
+
+      sources: [],
+
+      timestamp: new Date(),
+
+      loading: true
+
+    };
+
+    this.messages.unshift(message);
+
+    this.question = '';
+
     this.loading = true;
 
-    this.ragService.ask(this.question)
-      .subscribe({
+    this.ragService.ask(question).subscribe({
 
-        next: (response) => {
+      next: (response) => {
 
-          console.log('Response received:', response);
+        message.answer = response.answer;
 
-          this.messages.unshift({
+        message.sources = response.sources;
 
-            question: this.question,
+        message.loading = false;
 
-            answer: response.answer,
+        this.loading = false;
 
-            sources: response.sources,
+        this.cdr.detectChanges();
 
-            timestamp: new Date()
+      },
 
-          });
+      error: (error) => {
 
-          this.question = '';
+        console.error(error);
 
-          this.loading = false;
+        this.notificationService.error(
+          'Failed to get AI response.'
+        );
 
-          this.cdr.detectChanges();
+        message.answer = 'Something went wrong.';
 
-        },
+        message.loading = false;
 
-        error: (error) => {
+        this.loading = false;
 
-          console.error(error);
+        this.cdr.detectChanges();
 
-          this.loading = false;
+      }
 
-          this.cdr.detectChanges();
+    });
 
-        }
+  }
 
-      });
+  copyAnswer(answer: string): void {
+
+    navigator.clipboard.writeText(answer);
+
+    this.notificationService.success(
+      'Answer copied to clipboard.'
+    );
+
+  }
+
+  clearConversation(): void {
+
+    this.messages = [];
+    this.question = '';
+
+    this.notificationService.info(
+      'Conversation cleared.'
+    );
+
 
   }
 

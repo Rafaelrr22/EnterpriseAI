@@ -3,9 +3,7 @@
   <h3>📤 Upload Document</h3>
 
   <p class="upload-description">
-
     Upload PDF documents to extend your enterprise knowledge base.
-
   </p>
 
   <div
@@ -14,21 +12,15 @@
     (drop)="onDrop($event)">
 
     <div class="drop-icon">
-
       📄
-
     </div>
 
     <p>
-
       Drag & Drop your PDF here
-
     </p>
 
     <span>
-
       or
-
     </span>
 
     <input
@@ -41,16 +33,15 @@
     <button
       type="button"
       class="choose-button"
-      (click)="fileInput.click()">
+      (click)="fileInput.click()"
+      [disabled]="uploading">
 
       Choose File
 
     </button>
 
     <p class="selected-file">
-
       {{ selectedFileName }}
-
     </p>
 
   </div>
@@ -59,9 +50,9 @@
     type="button"
     class="upload-button"
     (click)="upload()"
-    [disabled]="!selectedFile">
+    [disabled]="!selectedFile || uploading">
 
-    Upload
+    {{ uploading ? 'Uploading...' : 'Upload' }}
 
   </button>
 
