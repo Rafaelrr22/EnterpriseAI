@@ -1,12 +1,32 @@
 <div>
 
-  <h3>📄 My Documents</h3>
+  <h3 class="section-title">
+
+    <mat-icon>
+
+      folder
+
+    </mat-icon>
+
+    My Documents
+
+  </h3>
 
   <div
     class="empty-state"
     *ngIf="documents.length === 0">
 
-    No documents uploaded yet.
+    <mat-icon>
+
+      folder_open
+
+    </mat-icon>
+
+    <p>
+
+      No documents uploaded yet.
+
+    </p>
 
   </div>
 
@@ -31,6 +51,7 @@
           <span>
 
             <strong>Type:</strong>
+
             {{ document.contentType }}
 
           </span>
@@ -38,6 +59,7 @@
           <span>
 
             <strong>Size:</strong>
+
             {{ formatSize(document.size) }}
 
           </span>
@@ -45,6 +67,7 @@
           <span>
 
             <strong>Uploaded:</strong>
+
             {{ document.uploadedAt | date:'dd/MM/yyyy HH:mm' }}
 
           </span>
@@ -60,7 +83,13 @@
           class="download-button"
           (click)="downloadDocument(document)">
 
-          ⬇ Download
+          <mat-icon>
+
+            download
+
+          </mat-icon>
+
+          Download
 
         </button>
 
@@ -69,7 +98,13 @@
           class="delete-button"
           (click)="deleteDocument(document.id)">
 
-          🗑 Delete
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
+
+          Delete
 
         </button>
 

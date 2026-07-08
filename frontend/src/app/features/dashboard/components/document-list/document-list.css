@@ -5,6 +5,23 @@
   gap: 20px;
 }
 
+.section-title {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+  color: #1e293b;
+
+  font-size: 1.5rem;
+}
+
+.section-title mat-icon {
+  color: #2563eb;
+}
+
 .document-card {
   display: flex;
   justify-content: space-between;
@@ -12,24 +29,28 @@
 
   gap: 24px;
 
-  padding: 20px;
+  padding: 24px;
 
   background-color: #ffffff;
 
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 16px;
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .document-card:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+.document-content {
+  flex: 1;
 }
 
 .document-card h4 {
@@ -37,7 +58,10 @@
 
   color: #1e293b;
 
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+
+  word-break: break-word;
 }
 
 .document-info {
@@ -46,32 +70,48 @@
 
   gap: 8px;
 
-  margin-bottom: 20px;
-
   color: #475569;
+
+  font-size: 0.95rem;
+}
+
+.document-info strong {
+  color: #334155;
 }
 
 .document-actions {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
 
   gap: 12px;
+
+  flex-shrink: 0;
 }
 
 .document-actions button {
-  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-width: 130px;
+  height: 44px;
+
+  padding: 0 18px;
 
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
 
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
 
   cursor: pointer;
 
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .document-actions button:hover {
@@ -85,6 +125,8 @@
 
 .download-button:hover {
   background-color: #1d4ed8;
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
 }
 
 .delete-button {
@@ -94,17 +136,41 @@
 
 .delete-button:hover {
   background-color: #b91c1c;
+
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.25);
 }
 
 .empty-state {
-  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  padding: 56px 32px;
 
   text-align: center;
 
-  color: #64748b;
-
   border: 2px dashed #cbd5e1;
-  border-radius: 12px;
+  border-radius: 16px;
 
   background-color: #f8fafc;
+}
+
+.empty-state mat-icon {
+  width: 52px;
+  height: 52px;
+
+  font-size: 52px;
+
+  color: #94a3b8;
+}
+
+.empty-state p {
+  margin: 0;
+
+  font-size: 1.05rem;
+
+  color: #64748b;
 }

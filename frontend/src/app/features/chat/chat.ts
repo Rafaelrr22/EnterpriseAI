@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { RagService } from '../../core/services/rag.service';
 import { ChatMessage } from '../../core/models/chat-message';
 import {NotificationService} from '../../core/services/notification.service';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatIconModule
   ],
   templateUrl: './chat.html',
   styleUrl: './chat.css'

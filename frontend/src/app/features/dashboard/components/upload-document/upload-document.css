@@ -1,24 +1,47 @@
 .upload-card {
-  padding: 24px;
+  padding: 28px;
 
   background-color: #ffffff;
 
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 16px;
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.upload-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
 }
 
 .upload-card h3 {
-  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0 0 10px;
 
   color: #1e293b;
+
+  font-size: 1.4rem;
+}
+
+.upload-card h3 mat-icon {
+  color: #2563eb;
 }
 
 .upload-description {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 
   color: #64748b;
+
+  line-height: 1.5;
 }
 
 .file-selector {
@@ -36,7 +59,7 @@
   padding: 10px 18px;
 
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
 
   background-color: #475569;
   color: #ffffff;
@@ -65,10 +88,15 @@
 }
 
 .upload-button {
+  min-width: 170px;
+  height: 48px;
+
+  margin-top: 8px;
+
   padding: 12px 24px;
 
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
 
   background-color: #2563eb;
   color: #ffffff;
@@ -80,43 +108,49 @@
 
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .upload-button:hover:not(:disabled) {
   background-color: #1d4ed8;
 
   transform: translateY(-1px);
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
 }
 
 .upload-button:disabled {
   background-color: #94a3b8;
 
   cursor: not-allowed;
+
+  box-shadow: none;
 }
 
 .drop-zone {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  gap: 12px;
+  gap: 14px;
 
-  padding: 36px;
+  padding: 48px;
 
   margin-bottom: 24px;
 
   border: 2px dashed #cbd5e1;
-  border-radius: 12px;
+  border-radius: 16px;
 
   background-color: #f8fafc;
 
   text-align: center;
 
   transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    transform 0.2s ease;
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .drop-zone:hover {
@@ -128,17 +162,27 @@
 }
 
 .drop-icon {
-  font-size: 3rem;
+  width: 72px;
+  height: 72px;
+
+  margin-bottom: 16px;
+
+  font-size: 72px;
+
+  color: #2563eb;
 }
 
 .drop-zone p {
   margin: 0;
 
-  color: #334155;
-
+  font-size: 1.1rem;
   font-weight: 600;
+
+  color: #334155;
 }
 
 .drop-zone span {
   color: #64748b;
+
+  font-size: 0.95rem;
 }

@@ -1,9 +1,21 @@
 <div class="upload-card">
 
-  <h3>📤 Upload Document</h3>
+  <h3>
+
+    <mat-icon>
+
+      cloud_upload
+
+    </mat-icon>
+
+    Upload Document
+
+  </h3>
 
   <p class="upload-description">
+
     Upload PDF documents to extend your enterprise knowledge base.
+
   </p>
 
   <div
@@ -11,16 +23,22 @@
     (dragover)="onDragOver($event)"
     (drop)="onDrop($event)">
 
-    <div class="drop-icon">
-      📄
-    </div>
+    <mat-icon class="drop-icon">
+
+      cloud_upload
+
+    </mat-icon>
 
     <p>
+
       Drag & Drop your PDF here
+
     </p>
 
     <span>
+
       or
+
     </span>
 
     <input
@@ -41,7 +59,9 @@
     </button>
 
     <p class="selected-file">
+
       {{ selectedFileName }}
+
     </p>
 
   </div>
@@ -51,6 +71,12 @@
     class="upload-button"
     (click)="upload()"
     [disabled]="!selectedFile || uploading">
+
+    <mat-icon *ngIf="uploading">
+
+      hourglass_top
+
+    </mat-icon>
 
     {{ uploading ? 'Uploading...' : 'Upload' }}
 

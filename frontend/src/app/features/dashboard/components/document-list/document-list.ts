@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { DocumentResponse } from '../../../../core/models/document-response';
 import { DocumentService } from '../../../../core/services/document.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import {MatIconModule} from '@angular/material/icon';
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './document-list.html',
   styleUrl: './document-list.css'
 })

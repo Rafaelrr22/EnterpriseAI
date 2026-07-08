@@ -9,12 +9,14 @@ import { CommonModule } from '@angular/common';
 
 import { DocumentService } from '../../../../core/services/document.service';
 import {NotificationService} from '../../../../core/services/notification.service';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-upload-document',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   templateUrl: './upload-document.html',
   styleUrl: './upload-document.css'

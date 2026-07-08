@@ -7,28 +7,30 @@ main {
 }
 
 .dashboard-header {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 
 .dashboard-header h2 {
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 
-  color: #1e293b;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
 
-  font-size: 2.2rem;
-  font-weight: 700;
+  color: #0f172a;
 }
 
 .dashboard-header p {
   margin: 0;
 
-  color: #64748b;
+  font-size: 1.05rem;
+  line-height: 1.6;
 
-  font-size: 1rem;
+  color: #64748b;
 }
 
 hr {
-  margin: 36px 0;
+  margin: 40px 0;
 
   border: none;
   border-top: 1px solid #e2e8f0;
