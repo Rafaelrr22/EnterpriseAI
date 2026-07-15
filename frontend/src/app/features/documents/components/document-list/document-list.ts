@@ -35,6 +35,8 @@ export class DocumentList implements OnInit {
 
   sortOption = 'newest';
 
+  loadingDocuments = true;
+
   documentPendingDeletionId: string | null = null;
 
   deletingDocumentId: string | null = null;
@@ -60,14 +62,20 @@ export class DocumentList implements OnInit {
 
   loadDocuments(): void {
 
+    this.loadingDocuments = true;
+
     this.documentService.list()
       .subscribe({
 
         next: (documents) => {
 
-          this.documents = [...documents];
+          this.documents = [
+            ...documents
+          ];
 
           this.filterDocuments();
+
+          this.loadingDocuments = false;
 
           this.cdr.detectChanges();
 
@@ -77,9 +85,13 @@ export class DocumentList implements OnInit {
 
           console.error(error);
 
+          this.loadingDocuments = false;
+
           this.notificationService.error(
             'Failed to load documents.'
           );
+
+          this.cdr.detectChanges();
 
         }
 
@@ -89,18 +101,21 @@ export class DocumentList implements OnInit {
 
   filterDocuments(): void {
 
-    const normalizedSearchTerm = this.searchTerm
-      .trim()
-      .toLowerCase();
+    const searchTerm =
+      this.searchTerm
+        .trim()
+        .toLowerCase();
 
-    this.filteredDocuments = this.documents
-      .filter((document) => {
+    this.filteredDocuments =
+      this.documents.filter(
+        (document) => {
 
-        return document.filename
-          .toLowerCase()
-          .includes(normalizedSearchTerm);
+          return document.filename
+            .toLowerCase()
+            .includes(searchTerm);
 
-      });
+        }
+      );
 
     this.sortDocuments();
 

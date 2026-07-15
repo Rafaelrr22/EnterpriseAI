@@ -1,3 +1,13 @@
+.document-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+
+/* Section title */
+
 .section-title {
   display: flex;
   align-items: center;
@@ -16,6 +26,76 @@
 }
 
 
+/* Loading state */
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 220px;
+
+  padding: 48px 32px;
+
+  background-color: #f8fafc;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.loading-icon {
+  width: 48px;
+  height: 48px;
+
+  color: #2563eb;
+
+  font-size: 48px;
+
+  animation:
+    rotate-loading-icon
+    1s linear infinite;
+}
+
+.loading-state h4 {
+  margin: 4px 0 0;
+
+  color: #334155;
+
+  font-size: 1.1rem;
+}
+
+.loading-state p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.5;
+}
+
+.loading-button-icon {
+  animation:
+    rotate-loading-icon
+    1s linear infinite;
+}
+
+@keyframes rotate-loading-icon {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
 /* Document toolbar */
 
 .document-toolbar {
@@ -23,7 +103,7 @@
   align-items: center;
   justify-content: space-between;
 
-  gap: 24px;
+  gap: 20px;
 
   margin-bottom: 24px;
 }
@@ -146,7 +226,7 @@
 }
 
 
-/* Sort */
+/* Sorting */
 
 .sort-box {
   display: flex;
@@ -229,14 +309,7 @@
 }
 
 
-/* Document list */
-
-.document-list {
-  display: flex;
-  flex-direction: column;
-
-  gap: 20px;
-}
+/* Document card */
 
 .document-card {
   display: flex;

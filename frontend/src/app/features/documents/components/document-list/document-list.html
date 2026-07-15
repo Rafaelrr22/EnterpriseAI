@@ -12,279 +12,280 @@
 
   </h3>
 
-  @if (documents.length > 0) {
+  @if (loadingDocuments) {
 
-    <div class="document-toolbar">
+    <div class="loading-state">
 
-      <div class="search-box">
+      <mat-icon class="loading-icon">
 
-        <mat-icon>
-
-          search
-
-        </mat-icon>
-
-        <input
-          type="search"
-          [(ngModel)]="searchTerm"
-          (input)="filterDocuments()"
-          placeholder="Search documents by name..."
-          aria-label="Search documents">
-
-        @if (searchTerm) {
-
-          <button
-            type="button"
-            class="clear-search-button"
-            (click)="clearSearch()"
-            aria-label="Clear document search">
-
-            <mat-icon>
-
-              close
-
-            </mat-icon>
-
-          </button>
-
-        }
-
-      </div>
-
-      <div class="toolbar-actions">
-
-        <div class="sort-box">
-
-          <mat-icon>
-
-            sort
-
-          </mat-icon>
-
-          <select
-            [(ngModel)]="sortOption"
-            (change)="sortDocuments()"
-            aria-label="Sort documents">
-
-            <option value="newest">
-
-              Newest first
-
-            </option>
-
-            <option value="oldest">
-
-              Oldest first
-
-            </option>
-
-            <option value="name-asc">
-
-              Name A–Z
-
-            </option>
-
-            <option value="name-desc">
-
-              Name Z–A
-
-            </option>
-
-            <option value="largest">
-
-              Largest first
-
-            </option>
-
-            <option value="smallest">
-
-              Smallest first
-
-            </option>
-
-          </select>
-
-        </div>
-
-        <span class="document-count">
-
-          {{ filteredDocuments.length }}
-
-          @if (
-            filteredDocuments.length === 1
-            ) {
-
-            document
-
-          } @else {
-
-            documents
-
-          }
-
-        </span>
-
-      </div>
-
-    </div>
-
-  }
-
-  @if (documents.length === 0) {
-
-    <div class="empty-state">
-
-      <mat-icon>
-
-        folder_open
-
-      </mat-icon>
-
-      <p>
-
-        No documents uploaded yet.
-
-      </p>
-
-    </div>
-
-  } @else if (
-    filteredDocuments.length === 0
-    ) {
-
-    <div class="no-results">
-
-      <mat-icon>
-
-        search_off
+        sync
 
       </mat-icon>
 
       <h4>
 
-        No documents found
+        Loading documents...
 
       </h4>
 
       <p>
 
-        No document matches
-        "<strong>{{ searchTerm }}</strong>".
+        Retrieving the documents from your knowledge base.
 
       </p>
-
-      <button
-        type="button"
-        (click)="clearSearch()">
-
-        Clear Search
-
-      </button>
 
     </div>
 
   } @else {
 
-    <div class="document-list">
+    @if (documents.length > 0) {
 
-      @for (
-        document of filteredDocuments;
-        track document.id
-        ) {
+      <div class="document-toolbar">
 
-        <article class="document-card">
+        <div class="search-box">
 
-          <div class="document-content">
+          <mat-icon>
 
-            <h4>
+            search
 
-              <mat-icon>
+          </mat-icon>
 
-                picture_as_pdf
+          <input
+            type="search"
+            [(ngModel)]="searchTerm"
+            (input)="filterDocuments()"
+            placeholder="Search documents by name..."
+            aria-label="Search documents">
 
-              </mat-icon>
-
-              {{ document.filename }}
-
-            </h4>
-
-            <div class="document-info">
-
-              <span>
-
-                <strong>
-
-                  Type:
-
-                </strong>
-
-                {{ document.contentType }}
-
-              </span>
-
-              <span>
-
-                <strong>
-
-                  Size:
-
-                </strong>
-
-                {{ formatSize(document.size) }}
-
-              </span>
-
-              <span>
-
-                <strong>
-
-                  Uploaded:
-
-                </strong>
-
-                {{
-                  document.uploadedAt
-                    | date:'dd/MM/yyyy HH:mm'
-                }}
-
-              </span>
-
-            </div>
-
-          </div>
-
-          <div class="document-actions">
+          @if (searchTerm) {
 
             <button
               type="button"
-              class="download-button"
-              (click)="downloadDocument(document)"
-              [disabled]="
-                deletingDocumentId !== null
-              ">
+              class="clear-search-button"
+              (click)="clearSearch()"
+              aria-label="Clear document search">
 
               <mat-icon>
 
-                download
+                close
 
               </mat-icon>
 
-              Download
-
             </button>
 
+          }
+
+        </div>
+
+        <div class="toolbar-actions">
+
+          <div class="sort-box">
+
+            <mat-icon>
+
+              sort
+
+            </mat-icon>
+
+            <select
+              [(ngModel)]="sortOption"
+              (change)="sortDocuments()"
+              aria-label="Sort documents">
+
+              <option value="newest">
+
+                Newest first
+
+              </option>
+
+              <option value="oldest">
+
+                Oldest first
+
+              </option>
+
+              <option value="name-asc">
+
+                Name A–Z
+
+              </option>
+
+              <option value="name-desc">
+
+                Name Z–A
+
+              </option>
+
+              <option value="largest">
+
+                Largest first
+
+              </option>
+
+              <option value="smallest">
+
+                Smallest first
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <span class="document-count">
+
+            {{ filteredDocuments.length }}
+
             @if (
-              documentPendingDeletionId
-              !== document.id
+              filteredDocuments.length === 1
               ) {
+
+              document
+
+            } @else {
+
+              documents
+
+            }
+
+          </span>
+
+        </div>
+
+      </div>
+
+    }
+
+    @if (documents.length === 0) {
+
+      <div class="empty-state">
+
+        <mat-icon>
+
+          folder_open
+
+        </mat-icon>
+
+        <p>
+
+          No documents uploaded yet.
+
+        </p>
+
+      </div>
+
+    } @else if (
+      filteredDocuments.length === 0
+      ) {
+
+      <div class="no-results">
+
+        <mat-icon>
+
+          search_off
+
+        </mat-icon>
+
+        <h4>
+
+          No documents found
+
+        </h4>
+
+        <p>
+
+          No document matches
+          "<strong>{{ searchTerm }}</strong>".
+
+        </p>
+
+        <button
+          type="button"
+          (click)="clearSearch()">
+
+          Clear Search
+
+        </button>
+
+      </div>
+
+    } @else {
+
+      <div class="document-list">
+
+        @for (
+          document of filteredDocuments;
+          track document.id
+          ) {
+
+          <article class="document-card">
+
+            <div class="document-content">
+
+              <h4>
+
+                <mat-icon>
+
+                  picture_as_pdf
+
+                </mat-icon>
+
+                {{ document.filename }}
+
+              </h4>
+
+              <div class="document-info">
+
+                <span>
+
+                  <strong>
+
+                    Type:
+
+                  </strong>
+
+                  {{ document.contentType }}
+
+                </span>
+
+                <span>
+
+                  <strong>
+
+                    Size:
+
+                  </strong>
+
+                  {{ formatSize(document.size) }}
+
+                </span>
+
+                <span>
+
+                  <strong>
+
+                    Uploaded:
+
+                  </strong>
+
+                  {{
+                    document.uploadedAt
+                      | date:'dd/MM/yyyy HH:mm'
+                  }}
+
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="document-actions">
 
               <button
                 type="button"
-                class="delete-button"
+                class="download-button"
                 (click)="
-                  openDeleteConfirmation(
-                    document.id
-                  )
+                  downloadDocument(document)
                 "
                 [disabled]="
                   deletingDocumentId !== null
@@ -292,90 +293,120 @@
 
                 <mat-icon>
 
-                  delete
+                  download
 
                 </mat-icon>
 
-                Delete
+                Download
 
               </button>
 
-            } @else {
+              @if (
+                documentPendingDeletionId
+                !== document.id
+                ) {
 
-              <div class="delete-confirmation">
+                <button
+                  type="button"
+                  class="delete-button"
+                  (click)="
+                    openDeleteConfirmation(
+                      document.id
+                    )
+                  "
+                  [disabled]="
+                    deletingDocumentId !== null
+                  ">
 
-                <span>
+                  <mat-icon>
 
-                  Delete this document?
+                    delete
 
-                </span>
+                  </mat-icon>
 
-                <div class="confirmation-actions">
+                  Delete
 
-                  <button
-                    type="button"
-                    class="cancel-button"
-                    (click)="cancelDelete()"
-                    [disabled]="
-                      deletingDocumentId !== null
-                    ">
+                </button>
 
-                    Cancel
+              } @else {
 
-                  </button>
+                <div class="delete-confirmation">
 
-                  <button
-                    type="button"
-                    class="confirm-button"
-                    (click)="
-                      confirmDelete(
-                        document.id
-                      )
-                    "
-                    [disabled]="
-                      deletingDocumentId !== null
-                    ">
+                  <span>
 
-                    @if (
-                      deletingDocumentId
-                      === document.id
-                      ) {
+                    Delete this document?
 
-                      <mat-icon>
+                  </span>
 
-                        hourglass_top
+                  <div class="confirmation-actions">
 
-                      </mat-icon>
+                    <button
+                      type="button"
+                      class="cancel-button"
+                      (click)="cancelDelete()"
+                      [disabled]="
+                        deletingDocumentId !== null
+                      ">
 
-                      Deleting...
+                      Cancel
 
-                    } @else {
+                    </button>
 
-                      <mat-icon>
+                    <button
+                      type="button"
+                      class="confirm-button"
+                      (click)="
+                        confirmDelete(
+                          document.id
+                        )
+                      "
+                      [disabled]="
+                        deletingDocumentId !== null
+                      ">
 
-                        delete_forever
+                      @if (
+                        deletingDocumentId
+                        === document.id
+                        ) {
 
-                      </mat-icon>
+                        <mat-icon
+                          class="loading-button-icon">
 
-                      Confirm
+                          sync
 
-                    }
+                        </mat-icon>
 
-                  </button>
+                        Deleting...
+
+                      } @else {
+
+                        <mat-icon>
+
+                          delete_forever
+
+                        </mat-icon>
+
+                        Confirm
+
+                      }
+
+                    </button>
+
+                  </div>
 
                 </div>
 
-              </div>
+              }
 
-            }
+            </div>
 
-          </div>
+          </article>
 
-        </article>
+        }
 
-      }
+      </div>
 
-    </div>
+    }
 
   }
 
