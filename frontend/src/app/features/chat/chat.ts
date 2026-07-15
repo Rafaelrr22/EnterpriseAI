@@ -82,6 +82,8 @@ export class Chat {
 
         this.loading = false;
 
+        this.chatStateService.saveMessages();
+
         this.cdr.detectChanges();
 
       },
@@ -99,6 +101,8 @@ export class Chat {
         message.loading = false;
 
         this.loading = false;
+
+        this.chatStateService.saveMessages();
 
         this.cdr.detectChanges();
 
@@ -121,6 +125,8 @@ export class Chat {
   clearConversation(): void {
 
     this.messages.length = 0;
+
+    this.chatStateService.saveMessages();
 
     this.question = '';
 

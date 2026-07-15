@@ -1,7 +1,7 @@
 @host = http://localhost:8080
 
-@adminJwt = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODQwMzczNTYsImV4cCI6MTc4NDEyMzc1Nn0.oi_gSOoah_ZEsO5R__hlELE8--41Dt0bS7Hmh3KAjEoVrmtSw4w0CSsCyU_9jPm3k_ugN7jOGO81-jMbopl6AQ
-@mariaJwt = COLE_AQUI_O_TOKEN_DA_MARIA
+@adminJwt = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBlbnRlcnByaXNlYWkubG9jYWwiLCJpYXQiOjE3ODQxMDM3MjIsImV4cCI6MTc4NDE5MDEyMn0.sqrJ0aEH5FO7h4SmRgH4MjJcvONbEqK0WCO79BUonmIExKLPnJVBp4IjFky6I6GgUiZ3Nf3W94CCe3ZSrFrwnQ
+@mariaJwt = Token
 
 @adminConversation = c5703f80-f58f-4cdd-a63c-35dd13e4d1c6
 
