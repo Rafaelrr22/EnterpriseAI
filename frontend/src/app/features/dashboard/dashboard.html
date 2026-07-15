@@ -1,6 +1,12 @@
-<main>
+<main class="dashboard-page">
 
   <section class="dashboard-header">
+
+    <span class="welcome-label">
+
+      Welcome back
+
+    </span>
 
     <h2>
 
@@ -10,20 +16,240 @@
 
     <p>
 
-      Manage your enterprise knowledge base and interact with your AI assistant.
+      Manage your enterprise knowledge base and access your AI assistant.
 
     </p>
 
   </section>
 
-  <app-upload-document></app-upload-document>
+  <section class="overview-section">
 
-  <hr>
+    <div class="section-heading">
 
-  <app-document-list></app-document-list>
+      <div>
 
-  <hr>
+        <h3>
 
-  <app-chat></app-chat>
+          Overview
+
+        </h3>
+
+        <p>
+
+          A quick summary of your GEF AI workspace.
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="overview-grid">
+
+      <article class="stat-card">
+
+        <div class="stat-icon documents-icon">
+
+          <mat-icon>
+
+            description
+
+          </mat-icon>
+
+        </div>
+
+        <div class="stat-content">
+
+          <span>
+
+            Uploaded Documents
+
+          </span>
+
+          @if (loadingDocuments) {
+
+            <strong class="loading-value">
+
+              ...
+
+            </strong>
+
+          } @else {
+
+            <strong>
+
+              {{ documentCount }}
+
+            </strong>
+
+          }
+
+          <small>
+
+            Available in your knowledge base
+
+          </small>
+
+        </div>
+
+      </article>
+
+      <article class="stat-card">
+
+        <div class="stat-icon assistant-icon">
+
+          <mat-icon>
+
+            smart_toy
+
+          </mat-icon>
+
+        </div>
+
+        <div class="stat-content">
+
+          <span>
+
+            AI Assistant
+
+          </span>
+
+          <strong>
+
+            Ready
+
+          </strong>
+
+          <small>
+
+            Ask questions about your documents
+
+          </small>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <section class="quick-actions-section">
+
+    <div class="section-heading">
+
+      <div>
+
+        <h3>
+
+          Quick Actions
+
+        </h3>
+
+        <p>
+
+          Access the main features of your workspace.
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="quick-actions-grid">
+
+      <article class="action-card">
+
+        <div class="action-icon">
+
+          <mat-icon>
+
+            folder
+
+          </mat-icon>
+
+        </div>
+
+        <div class="action-content">
+
+          <h4>
+
+            Manage Documents
+
+          </h4>
+
+          <p>
+
+            Upload PDF documents and manage the files available in your
+            enterprise knowledge base.
+
+          </p>
+
+          <a
+            routerLink="/documents"
+            class="action-link">
+
+            Open Documents
+
+            <mat-icon>
+
+              arrow_forward
+
+            </mat-icon>
+
+          </a>
+
+        </div>
+
+      </article>
+
+      <article class="action-card">
+
+        <div class="action-icon">
+
+          <mat-icon>
+
+            forum
+
+          </mat-icon>
+
+        </div>
+
+        <div class="action-content">
+
+          <h4>
+
+            Ask GEF AI
+
+          </h4>
+
+          <p>
+
+            Search your enterprise knowledge and receive answers supported
+            by your uploaded documents.
+
+          </p>
+
+          <a
+            routerLink="/chat"
+            class="action-link">
+
+            Open AI Assistant
+
+            <mat-icon>
+
+              arrow_forward
+
+            </mat-icon>
+
+          </a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
 
 </main>
