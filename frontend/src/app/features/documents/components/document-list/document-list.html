@@ -12,6 +12,68 @@
 
   </h3>
 
+  @if (documents.length > 0) {
+
+    <div class="document-toolbar">
+
+      <div class="search-box">
+
+        <mat-icon>
+
+          search
+
+        </mat-icon>
+
+        <input
+          type="search"
+          [(ngModel)]="searchTerm"
+          (input)="filterDocuments()"
+          placeholder="Search documents by name..."
+          aria-label="Search documents">
+
+        @if (searchTerm) {
+
+          <button
+            type="button"
+            class="clear-search-button"
+            (click)="
+            searchTerm = '';
+            filterDocuments()
+          "
+            aria-label="Clear document search">
+
+            <mat-icon>
+
+              close
+
+            </mat-icon>
+
+          </button>
+
+        }
+
+      </div>
+
+      <span class="document-count">
+
+      {{ filteredDocuments.length }}
+
+        @if (filteredDocuments.length === 1) {
+
+          document
+
+        } @else {
+
+          documents
+
+        }
+
+    </span>
+
+    </div>
+
+  }
+
   @if (documents.length === 0) {
 
     <div class="empty-state">
@@ -30,12 +92,50 @@
 
     </div>
 
+  } @else if (
+    filteredDocuments.length === 0
+    ) {
+
+    <div class="no-results">
+
+      <mat-icon>
+
+        search_off
+
+      </mat-icon>
+
+      <h4>
+
+        No documents found
+
+      </h4>
+
+      <p>
+
+        No document matches
+        "<strong>{{ searchTerm }}</strong>".
+
+      </p>
+
+      <button
+        type="button"
+        (click)="
+        searchTerm = '';
+        filterDocuments()
+      ">
+
+        Clear Search
+
+      </button>
+
+    </div>
+
   } @else {
 
     <div class="document-list">
 
       @for (
-        document of documents;
+        document of filteredDocuments;
         track document.id
         ) {
 

@@ -13,11 +13,14 @@ import { DocumentResponse } from '../../../../core/models/document-response';
 import { DocumentService } from '../../../../core/services/document.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-document-list',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatIconModule
   ],
   templateUrl: './document-list.html',
@@ -26,6 +29,10 @@ import { NotificationService } from '../../../../core/services/notification.serv
 export class DocumentList implements OnInit {
 
   documents: DocumentResponse[] = [];
+
+  searchTerm = '';
+
+  filteredDocuments: DocumentResponse[] = [];
 
   documentPendingDeletionId: string | null = null;
 
@@ -58,6 +65,8 @@ export class DocumentList implements OnInit {
 
         this.documents = [...documents];
 
+        this.filterDocuments();
+
         this.cdr.detectChanges();
 
       },
@@ -73,6 +82,36 @@ export class DocumentList implements OnInit {
       }
 
     });
+
+  }
+
+  filterDocuments(): void {
+
+    const searchTerm =
+      this.searchTerm
+        .trim()
+        .toLowerCase();
+
+    if (!searchTerm) {
+
+      this.filteredDocuments = [
+        ...this.documents
+      ];
+
+      return;
+
+    }
+
+    this.filteredDocuments =
+      this.documents.filter(
+        (document) => {
+
+          return document.filename
+            .toLowerCase()
+            .includes(searchTerm);
+
+        }
+      );
 
   }
 
