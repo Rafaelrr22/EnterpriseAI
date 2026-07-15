@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 import { Header } from '../../shared/components/header/header';
-import {Sidebar} from '../../features/dashboard/components/sidebar/sidebar';
+import {Sidebar} from '../../shared/components/sidebar/sidebar';
 
 @Component({
   selector: 'app-main-layout',

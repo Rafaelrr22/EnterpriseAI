@@ -20,6 +20,7 @@
 
   <div
     class="drop-zone"
+    [class.has-file]="selectedFile"
     (dragover)="onDragOver($event)"
     (drop)="onDrop($event)">
 
@@ -58,28 +59,58 @@
 
     </button>
 
-    <p class="selected-file">
+    @if (selectedFile) {
 
-      {{ selectedFileName }}
+      <div class="selected-file success">
 
-    </p>
+        <mat-icon>
+
+          check_circle
+
+        </mat-icon>
+
+        <span>
+
+          {{ selectedFileName }}
+
+        </span>
+
+      </div>
+
+    } @else {
+
+      <p class="selected-file">
+
+        No file selected
+
+      </p>
+
+    }
 
   </div>
 
-  <button
-    type="button"
-    class="upload-button"
-    (click)="upload()"
-    [disabled]="!selectedFile || uploading">
+  @if (selectedFile) {
 
-    <mat-icon *ngIf="uploading">
+    <button
+      type="button"
+      class="upload-button"
+      (click)="upload()"
+      [disabled]="uploading">
 
-      hourglass_top
+      @if (uploading) {
 
-    </mat-icon>
+        <mat-icon>
 
-    {{ uploading ? 'Uploading...' : 'Upload' }}
+          hourglass_top
 
-  </button>
+        </mat-icon>
+
+      }
+
+      {{ uploading ? 'Uploading...' : 'Upload Document' }}
+
+    </button>
+
+  }
 
 </div>

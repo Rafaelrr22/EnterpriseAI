@@ -13,6 +13,41 @@
     box-shadow 0.25s ease;
 }
 
+.chat-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 24px;
+
+  margin-bottom: 24px;
+}
+
+.chat-title > div {
+  flex: 1;
+}
+
+.chat-title h3 {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0 0 8px;
+
+  color: #1e293b;
+}
+
+.chat-title h3 mat-icon {
+  color: #2563eb;
+}
+
+.chat-title .chat-description {
+  margin: 0;
+
+  color: #64748b;
+}
+
 .chat-card:hover {
   transform: translateY(-2px);
 
@@ -78,32 +113,37 @@
 }
 
 .chat-input button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
   gap: 8px;
 
-  min-width: 120px;
-  height: 48px;
+  min-width: 140px;
+  min-height: 48px;
 
-  padding: 0 24px;
+  padding: 12px 20px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
 
   background-color: #2563eb;
   color: #ffffff;
 
-  font-size: 0.95rem;
   font-weight: 600;
 
   cursor: pointer;
 
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.2s ease;
+}
+
+.chat-input button mat-icon {
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
 }
 
 .chat-input button:hover:not(:disabled) {
@@ -130,18 +170,18 @@
 }
 
 .clear-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
   gap: 8px;
 
-  height: 44px;
+  flex-shrink: 0;
 
-  padding: 0 18px;
+  padding: 10px 16px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
 
   background-color: #ef4444;
   color: #ffffff;
@@ -152,8 +192,26 @@
 
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.2s ease;
+}
+
+.clear-button mat-icon {
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
+}
+
+.clear-button:hover:not(:disabled) {
+  background-color: #dc2626;
+
+  transform: translateY(-1px);
+}
+
+.clear-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
 }
 
 .clear-button:hover {

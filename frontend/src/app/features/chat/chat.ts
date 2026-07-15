@@ -1,11 +1,18 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { MatIconModule } from '@angular/material/icon';
+
 import { RagService } from '../../core/services/rag.service';
+import { NotificationService } from '../../core/services/notification.service';
+import { ChatStateService } from '../../core/services/chat-state.service';
+
 import { ChatMessage } from '../../core/models/chat-message';
-import {NotificationService} from '../../core/services/notification.service';
-import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-chat',
@@ -22,15 +29,20 @@ export class Chat {
 
   question = '';
 
-  messages: ChatMessage[] = [];
+  messages: ChatMessage[];
 
   loading = false;
 
   constructor(
     private ragService: RagService,
     private notificationService: NotificationService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private chatStateService: ChatStateService
+  ) {
+
+    this.messages = this.chatStateService.messages;
+
+  }
 
   ask(): void {
 
@@ -38,24 +50,18 @@ export class Chat {
       return;
     }
 
-    if (!this.question.trim()) {
+    const question = this.question.trim();
+
+    if (!question) {
       return;
     }
 
-    const question = this.question;
-
     const message: ChatMessage = {
-
       question,
-
       answer: '',
-
       sources: [],
-
       timestamp: new Date(),
-
       loading: true
-
     };
 
     this.messages.unshift(message);
@@ -114,13 +120,13 @@ export class Chat {
 
   clearConversation(): void {
 
-    this.messages = [];
+    this.messages.length = 0;
+
     this.question = '';
 
     this.notificationService.info(
       'Conversation cleared.'
     );
-
 
   }
 

@@ -1,151 +1,85 @@
-<div class="chat-card">
+<main class="chat-page">
 
-  <h3>
+  <section class="chat-page-header">
 
-    <mat-icon>forum</mat-icon>
+    <h2>
 
-    AI Assistant
+      AI Assistant
 
-  </h3>
-
-  <p class="chat-description">
-
-    Ask anything about your uploaded documents.
-
-  </p>
-
-  <div class="chat-input">
-
-    <input
-      type="text"
-      [(ngModel)]="question"
-      (keyup.enter)="ask()"
-      [disabled]="loading"
-      placeholder="Ask a question about your documents">
-
-    <button
-      type="button"
-      (click)="ask()"
-      [disabled]="loading">
-
-      <mat-icon *ngIf="loading">
-
-        hourglass_top
-
-      </mat-icon>
-
-      {{ loading ? 'Thinking...' : 'Ask' }}
-
-    </button>
-
-  </div>
-
-  <div
-    class="chat-actions"
-    *ngIf="messages.length > 0">
-
-    <button
-      type="button"
-      class="clear-button"
-      (click)="clearConversation()">
-
-      <mat-icon>
-
-        delete_sweep
-
-      </mat-icon>
-
-      Clear conversation
-
-    </button>
-
-  </div>
-
-  <div
-    class="empty-chat"
-    *ngIf="messages.length === 0">
-
-    <mat-icon>
-
-      forum
-
-    </mat-icon>
+    </h2>
 
     <p>
 
-      No questions yet.
+      Ask questions and get answers based on your enterprise documents.
 
     </p>
 
-    <span>
+  </section>
 
-      Start chatting with EnterpriseAI.
+  <div class="chat-card">
 
-    </span>
+    <div class="chat-title">
 
-  </div>
+      <div>
 
-  <div
-    class="chat-history"
-    *ngIf="messages.length > 0">
-
-    <div
-      class="chat-message"
-      *ngFor="let message of messages">
-
-      <div class="message-header">
-
-        <span>
+        <h3>
 
           <mat-icon>
 
-            account_circle
+            forum
 
           </mat-icon>
 
-          <strong>You</strong>
+          Enterprise Knowledge Assistant
 
-        </span>
+        </h3>
 
-        <small>
+        <p class="chat-description">
 
-          {{ message.timestamp | date:'dd/MM/yyyy HH:mm:ss' }}
+          Ask anything about the documents available in your knowledge base.
 
-        </small>
-
-      </div>
-
-      <div class="user-message">
-
-        {{ message.question }}
+        </p>
 
       </div>
 
-      <div class="message-header">
+      @if (messages.length > 0) {
 
-        <span>
+        <button
+          type="button"
+          class="clear-button"
+          (click)="clearConversation()"
+          [disabled]="loading">
 
           <mat-icon>
 
-            smart_toy
+            delete_sweep
 
           </mat-icon>
 
-          <strong>EnterpriseAI</strong>
+          Clear Conversation
 
-        </span>
+        </button>
 
-      </div>
+      }
 
-      <div class="ai-message">
+    </div>
 
-        <ng-container *ngIf="!message.loading">
+    <div class="chat-input">
 
-          {{ message.answer }}
+      <input
+        type="text"
+        [(ngModel)]="question"
+        (keyup.enter)="ask()"
+        placeholder="Ask a question about your documents..."
+        [disabled]="loading"
+        autocomplete="off">
 
-        </ng-container>
+      <button
+        type="button"
+        (click)="ask()"
+        [disabled]="loading || !question.trim()">
 
-        <ng-container *ngIf="message.loading">
+        @if (loading) {
 
           <mat-icon>
 
@@ -155,62 +89,184 @@
 
           Thinking...
 
-        </ng-container>
-
-      </div>
-
-      <div
-        class="sources"
-        *ngIf="!message.loading && message.sources.length > 0">
-
-        <strong>
-
-          Sources
-
-        </strong>
-
-        <div class="source-list">
-
-          <span
-            class="source-badge"
-            *ngFor="let source of message.sources">
-
-            <mat-icon>
-
-              description
-
-            </mat-icon>
-
-            {{ source }}
-
-          </span>
-
-        </div>
-
-      </div>
-
-      <div
-        class="answer-actions"
-        *ngIf="!message.loading">
-
-        <button
-          type="button"
-          (click)="copyAnswer(message.answer)">
+        } @else {
 
           <mat-icon>
 
-            content_copy
+            send
 
           </mat-icon>
 
-          Copy
+          Ask
 
-        </button>
+        }
 
-      </div>
+      </button>
 
     </div>
 
+    @if (messages.length === 0) {
+
+      <div class="empty-chat">
+
+        <mat-icon>
+
+          smart_toy
+
+        </mat-icon>
+
+        <h4>
+
+          Start a conversation
+
+        </h4>
+
+        <p>
+
+          Ask a question about your uploaded documents and the AI assistant
+          will search the knowledge base for a relevant answer.
+
+        </p>
+
+      </div>
+
+    } @else {
+
+      <div class="chat-history">
+
+        @for (message of messages; track message.timestamp) {
+
+          <article class="chat-message">
+
+            <div class="message-header">
+
+              <span>
+
+                <mat-icon>
+
+                  person
+
+                </mat-icon>
+
+                You
+
+              </span>
+
+              <small>
+
+                {{ message.timestamp | date:'dd/MM/yyyy HH:mm:ss' }}
+
+              </small>
+
+            </div>
+
+            <div class="user-message">
+
+              {{ message.question }}
+
+            </div>
+
+            <div class="message-header">
+
+              <span>
+
+                <mat-icon>
+
+                  smart_toy
+
+                </mat-icon>
+
+                GEF AI
+
+              </span>
+
+            </div>
+
+            @if (message.loading) {
+
+              <div class="ai-message loading-message">
+
+                <mat-icon>
+
+                  hourglass_top
+
+                </mat-icon>
+
+                Searching the knowledge base...
+
+              </div>
+
+            } @else {
+
+              <div class="ai-message">
+
+                {{ message.answer }}
+
+              </div>
+
+              @if (message.sources.length > 0) {
+
+                <div class="sources">
+
+                  <strong>
+
+                    Sources
+
+                  </strong>
+
+                  <div class="source-list">
+
+                    @for (source of message.sources; track source) {
+
+                      <span class="source-badge">
+
+                        <mat-icon>
+
+                          description
+
+                        </mat-icon>
+
+                        {{ source }}
+
+                      </span>
+
+                    }
+
+                  </div>
+
+                </div>
+
+              }
+
+              <div class="answer-actions">
+
+                <button
+                  type="button"
+                  class="copy-button"
+                  (click)="copyAnswer(message.answer)">
+
+                  <mat-icon>
+
+                    content_copy
+
+                  </mat-icon>
+
+                  Copy Answer
+
+                </button>
+
+              </div>
+
+            }
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
   </div>
 
-</div>
+</main>

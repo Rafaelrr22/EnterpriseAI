@@ -4,6 +4,9 @@ import { authGuard } from './core/guards/auth.guard';
 
 import { Login } from './features/auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard';
+import { Documents } from './features/documents/documents';
+import { Chat } from './features/chat/chat';
+
 import { MainLayout } from './layouts/main-layout/main-layout';
 
 export const routes: Routes = [
@@ -17,15 +20,23 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
         path: 'dashboard',
         component: Dashboard
+      },
+      {
+        path: 'documents',
+        component: Documents
+      },
+      {
+        path: 'chat',
+        component: Chat
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
   },
   {
     path: '**',
