@@ -142,11 +142,17 @@
   line-height: 1.5;
 }
 
+/* Buttons */
+
 .primary-button,
-.danger-button {
+.clear-history-button,
+.cancel-button,
+.confirm-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 
   gap: 8px;
 
@@ -155,8 +161,7 @@
   border: none;
   border-radius: 8px;
 
-  color: #ffffff;
-
+  font-size: 0.9rem;
   font-weight: 600;
 
   cursor: pointer;
@@ -170,6 +175,7 @@
   margin-top: 12px;
 
   background-color: #2563eb;
+  color: #ffffff;
 }
 
 .primary-button:hover {
@@ -178,25 +184,58 @@
   transform: translateY(-1px);
 }
 
-.danger-button {
-  flex-shrink: 0;
-
+.clear-history-button {
   background-color: #ef4444;
+  color: #ffffff;
 }
 
-.danger-button:hover {
+.clear-history-button:hover {
   background-color: #dc2626;
 
   transform: translateY(-1px);
 }
 
-.primary-button mat-icon,
-.danger-button mat-icon {
-  width: 20px;
-  height: 20px;
-
-  font-size: 20px;
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #334155;
 }
+
+.cancel-button:hover {
+  background-color: #cbd5e1;
+
+  transform: translateY(-1px);
+}
+
+.confirm-button {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.confirm-button:hover {
+  background-color: #b91c1c;
+
+  transform: translateY(-1px);
+}
+
+.primary-button mat-icon,
+.clear-history-button mat-icon,
+.confirm-button mat-icon {
+  width: 18px;
+  height: 18px;
+
+  font-size: 18px;
+}
+
+.confirmation-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+/* Preference switch */
 
 .switch {
   position: relative;
@@ -233,11 +272,11 @@
 .slider::before {
   position: absolute;
 
+  top: 4px;
+  left: 4px;
+
   width: 20px;
   height: 20px;
-
-  left: 4px;
-  top: 4px;
 
   background-color: #ffffff;
 
@@ -257,6 +296,8 @@
 .switch input:checked + .slider::before {
   transform: translateX(22px);
 }
+
+/* Platform information */
 
 .platform-information {
   display: grid;
@@ -290,6 +331,8 @@
   color: #16a34a;
 }
 
+/* Responsive */
+
 @media (max-width: 900px) {
 
   .settings-grid {
@@ -319,12 +362,18 @@
   }
 
   .settings-card {
+    flex-direction: column;
+
     padding: 22px;
   }
 
   .setting-row {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .confirmation-actions {
+    width: 100%;
   }
 
 }

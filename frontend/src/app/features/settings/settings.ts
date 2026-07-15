@@ -24,6 +24,8 @@ export class Settings {
 
   showSources = true;
 
+  showClearConfirmation = false;
+
   constructor(
     private chatStateService: ChatStateService,
     private notificationService: NotificationService,
@@ -46,9 +48,23 @@ export class Settings {
 
   }
 
-  clearConversation(): void {
+  openClearConfirmation(): void {
+
+    this.showClearConfirmation = true;
+
+  }
+
+  cancelClearConversation(): void {
+
+    this.showClearConfirmation = false;
+
+  }
+
+  confirmClearConversation(): void {
 
     this.chatStateService.clearMessages();
+
+    this.showClearConfirmation = false;
 
     this.notificationService.info(
       'Conversation history cleared.'
