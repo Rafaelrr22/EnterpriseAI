@@ -24,8 +24,8 @@
 
 .document-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
   gap: 24px;
 
@@ -36,7 +36,9 @@
   border: 1px solid #e2e8f0;
   border-radius: 16px;
 
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  box-shadow:
+    0 8px 24px
+    rgba(15, 23, 42, 0.06);
 
   transition:
     transform 0.25s ease,
@@ -46,14 +48,23 @@
 .document-card:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 16px 36px
+    rgba(15, 23, 42, 0.08);
 }
 
 .document-content {
   flex: 1;
+
+  min-width: 0;
 }
 
 .document-card h4 {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
   margin: 0 0 16px;
 
   color: #1e293b;
@@ -62,6 +73,12 @@
   font-weight: 600;
 
   word-break: break-word;
+}
+
+.document-card h4 mat-icon {
+  flex-shrink: 0;
+
+  color: #dc2626;
 }
 
 .document-info {
@@ -83,13 +100,15 @@
   display: flex;
   flex-direction: column;
 
+  flex-shrink: 0;
+
   gap: 12px;
 
-  flex-shrink: 0;
+  min-width: 150px;
 }
 
 .document-actions button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
@@ -111,11 +130,25 @@
   transition:
     background-color 0.2s ease,
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.document-actions button:hover {
+.document-actions button:hover:not(:disabled) {
   transform: translateY(-1px);
+}
+
+.document-actions button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.65;
+}
+
+.document-actions mat-icon {
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
 }
 
 .download-button {
@@ -123,10 +156,12 @@
   color: #ffffff;
 }
 
-.download-button:hover {
+.download-button:hover:not(:disabled) {
   background-color: #1d4ed8;
 
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+  box-shadow:
+    0 8px 20px
+    rgba(37, 99, 235, 0.25);
 }
 
 .delete-button {
@@ -134,10 +169,71 @@
   color: #ffffff;
 }
 
-.delete-button:hover {
+.delete-button:hover:not(:disabled) {
   background-color: #b91c1c;
 
-  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.25);
+  box-shadow:
+    0 8px 20px
+    rgba(220, 38, 38, 0.25);
+}
+
+.delete-confirmation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  background-color: #fef2f2;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+}
+
+.delete-confirmation > span {
+  color: #991b1b;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+.confirmation-actions {
+  display: flex;
+
+  gap: 8px;
+}
+
+.confirmation-actions button {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 38px;
+
+  padding: 0 12px;
+
+  font-size: 0.85rem;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.cancel-button:hover:not(:disabled) {
+  background-color: #cbd5e1;
+}
+
+.confirm-button {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.confirm-button:hover:not(:disabled) {
+  background-color: #b91c1c;
 }
 
 .empty-state {
@@ -150,27 +246,44 @@
 
   padding: 56px 32px;
 
-  text-align: center;
+  background-color: #f8fafc;
 
   border: 2px dashed #cbd5e1;
   border-radius: 16px;
 
-  background-color: #f8fafc;
+  text-align: center;
 }
 
 .empty-state mat-icon {
   width: 52px;
   height: 52px;
 
-  font-size: 52px;
-
   color: #94a3b8;
+
+  font-size: 52px;
 }
 
 .empty-state p {
   margin: 0;
 
-  font-size: 1.05rem;
-
   color: #64748b;
+
+  font-size: 1.05rem;
+}
+
+@media (max-width: 700px) {
+
+  .document-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .document-actions {
+    width: 100%;
+  }
+
+  .document-actions button {
+    width: 100%;
+  }
+
 }
