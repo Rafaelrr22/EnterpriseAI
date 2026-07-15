@@ -36,10 +36,7 @@
           <button
             type="button"
             class="clear-search-button"
-            (click)="
-            searchTerm = '';
-            filterDocuments()
-          "
+            (click)="clearSearch()"
             aria-label="Clear document search">
 
             <mat-icon>
@@ -54,21 +51,80 @@
 
       </div>
 
-      <span class="document-count">
+      <div class="toolbar-actions">
 
-      {{ filteredDocuments.length }}
+        <div class="sort-box">
 
-        @if (filteredDocuments.length === 1) {
+          <mat-icon>
 
-          document
+            sort
 
-        } @else {
+          </mat-icon>
 
-          documents
+          <select
+            [(ngModel)]="sortOption"
+            (change)="sortDocuments()"
+            aria-label="Sort documents">
 
-        }
+            <option value="newest">
 
-    </span>
+              Newest first
+
+            </option>
+
+            <option value="oldest">
+
+              Oldest first
+
+            </option>
+
+            <option value="name-asc">
+
+              Name A–Z
+
+            </option>
+
+            <option value="name-desc">
+
+              Name Z–A
+
+            </option>
+
+            <option value="largest">
+
+              Largest first
+
+            </option>
+
+            <option value="smallest">
+
+              Smallest first
+
+            </option>
+
+          </select>
+
+        </div>
+
+        <span class="document-count">
+
+          {{ filteredDocuments.length }}
+
+          @if (
+            filteredDocuments.length === 1
+            ) {
+
+            document
+
+          } @else {
+
+            documents
+
+          }
+
+        </span>
+
+      </div>
 
     </div>
 
@@ -119,10 +175,7 @@
 
       <button
         type="button"
-        (click)="
-        searchTerm = '';
-        filterDocuments()
-      ">
+        (click)="clearSearch()">
 
         Clear Search
 
@@ -206,7 +259,9 @@
               type="button"
               class="download-button"
               (click)="downloadDocument(document)"
-              [disabled]="deletingDocumentId !== null">
+              [disabled]="
+                deletingDocumentId !== null
+              ">
 
               <mat-icon>
 
@@ -219,17 +274,21 @@
             </button>
 
             @if (
-              documentPendingDeletionId !==
-              document.id
+              documentPendingDeletionId
+              !== document.id
               ) {
 
               <button
                 type="button"
                 class="delete-button"
-                (click)="openDeleteConfirmation(
-                  document.id
-                )"
-                [disabled]="deletingDocumentId !== null">
+                (click)="
+                  openDeleteConfirmation(
+                    document.id
+                  )
+                "
+                [disabled]="
+                  deletingDocumentId !== null
+                ">
 
                 <mat-icon>
 
@@ -268,16 +327,18 @@
                   <button
                     type="button"
                     class="confirm-button"
-                    (click)="confirmDelete(
-                      document.id
-                    )"
+                    (click)="
+                      confirmDelete(
+                        document.id
+                      )
+                    "
                     [disabled]="
                       deletingDocumentId !== null
                     ">
 
                     @if (
-                      deletingDocumentId ===
-                      document.id
+                      deletingDocumentId
+                      === document.id
                       ) {
 
                       <mat-icon>
