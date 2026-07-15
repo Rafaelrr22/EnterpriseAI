@@ -1,10 +1,245 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+<main class="settings-page">
 
-</body>
-</html>
+  <section class="settings-header">
+
+    <h2>
+
+      Settings
+
+    </h2>
+
+    <p>
+
+      Manage your GEF AI preferences and workspace settings.
+
+    </p>
+
+  </section>
+
+  <section class="settings-grid">
+
+    <article class="settings-card">
+
+      <div class="card-icon">
+
+        <mat-icon>
+
+          smart_toy
+
+        </mat-icon>
+
+      </div>
+
+      <div class="card-content">
+
+        <h3>
+
+          AI Preferences
+
+        </h3>
+
+        <p>
+
+          Configure how information is displayed in the AI Assistant.
+
+        </p>
+
+        <div class="setting-row">
+
+          <div>
+
+            <strong>
+
+              Show document sources
+
+            </strong>
+
+            <span>
+
+              Display the documents used to generate each AI answer.
+
+            </span>
+
+          </div>
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              [(ngModel)]="showSources">
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="savePreferences()">
+
+          <mat-icon>
+
+            save
+
+          </mat-icon>
+
+          Save Preferences
+
+        </button>
+
+      </div>
+
+    </article>
+
+    <article class="settings-card">
+
+      <div class="card-icon conversation-icon">
+
+        <mat-icon>
+
+          forum
+
+        </mat-icon>
+
+      </div>
+
+      <div class="card-content">
+
+        <h3>
+
+          Conversation
+
+        </h3>
+
+        <p>
+
+          Manage the AI Assistant conversation stored in this browser session.
+
+        </p>
+
+        <div class="setting-row">
+
+          <div>
+
+            <strong>
+
+              Clear conversation history
+
+            </strong>
+
+            <span>
+
+              Permanently remove the current AI conversation from this session.
+
+            </span>
+
+          </div>
+
+          <button
+            type="button"
+            class="danger-button"
+            (click)="clearConversation()">
+
+            <mat-icon>
+
+              delete_sweep
+
+            </mat-icon>
+
+            Clear History
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="settings-card platform-card">
+
+      <div class="card-icon platform-icon">
+
+        <mat-icon>
+
+          info
+
+        </mat-icon>
+
+      </div>
+
+      <div class="card-content">
+
+        <h3>
+
+          Platform Information
+
+        </h3>
+
+        <p>
+
+          Information about your enterprise knowledge platform.
+
+        </p>
+
+        <div class="platform-information">
+
+          <div>
+
+            <span>
+
+              Platform
+
+            </span>
+
+            <strong>
+
+              GEF AI
+
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+
+              Description
+
+            </span>
+
+            <strong>
+
+              Enterprise Knowledge Platform
+
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+
+              Status
+
+            </span>
+
+            <strong class="status">
+
+              Operational
+
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</main>

@@ -1,0 +1,330 @@
+.settings-page {
+  max-width: 1300px;
+
+  margin: 40px auto;
+
+  padding: 0 32px 48px;
+}
+
+.settings-header {
+  margin-bottom: 40px;
+}
+
+.settings-header h2 {
+  margin: 0 0 10px;
+
+  color: #0f172a;
+
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.settings-header p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+.settings-card {
+  display: flex;
+
+  gap: 20px;
+
+  padding: 28px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.platform-card {
+  grid-column: 1 / -1;
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 52px;
+  height: 52px;
+
+  background-color: #dbeafe;
+
+  border-radius: 12px;
+
+  color: #2563eb;
+}
+
+.card-icon mat-icon {
+  width: 28px;
+  height: 28px;
+
+  font-size: 28px;
+}
+
+.conversation-icon {
+  background-color: #fee2e2;
+
+  color: #dc2626;
+}
+
+.platform-icon {
+  background-color: #ede9fe;
+
+  color: #7c3aed;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-content h3 {
+  margin: 0 0 8px;
+
+  color: #1e293b;
+
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.card-content > p {
+  margin: 0 0 24px;
+
+  color: #64748b;
+
+  line-height: 1.6;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding: 20px 0;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.setting-row > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.setting-row strong {
+  color: #334155;
+}
+
+.setting-row span {
+  color: #64748b;
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.primary-button,
+.danger-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  color: #ffffff;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.primary-button {
+  margin-top: 12px;
+
+  background-color: #2563eb;
+}
+
+.primary-button:hover {
+  background-color: #1d4ed8;
+
+  transform: translateY(-1px);
+}
+
+.danger-button {
+  flex-shrink: 0;
+
+  background-color: #ef4444;
+}
+
+.danger-button:hover {
+  background-color: #dc2626;
+
+  transform: translateY(-1px);
+}
+
+.primary-button mat-icon,
+.danger-button mat-icon {
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
+}
+
+.switch {
+  position: relative;
+
+  display: inline-block;
+
+  flex-shrink: 0;
+
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+
+  inset: 0;
+
+  background-color: #cbd5e1;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.slider::before {
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  left: 4px;
+  top: 4px;
+
+  background-color: #ffffff;
+
+  border-radius: 50%;
+
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.2);
+
+  content: '';
+
+  transition: transform 0.2s ease;
+}
+
+.switch input:checked + .slider {
+  background-color: #2563eb;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+.platform-information {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.platform-information div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.platform-information span {
+  color: #64748b;
+
+  font-size: 0.85rem;
+}
+
+.platform-information strong {
+  color: #1e293b;
+}
+
+.platform-information .status {
+  color: #16a34a;
+}
+
+@media (max-width: 900px) {
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-card {
+    grid-column: auto;
+  }
+
+  .platform-information {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .settings-page {
+    margin-top: 28px;
+
+    padding: 0 20px 40px;
+  }
+
+  .settings-header h2 {
+    font-size: 2.3rem;
+  }
+
+  .settings-card {
+    padding: 22px;
+  }
+
+  .setting-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+}

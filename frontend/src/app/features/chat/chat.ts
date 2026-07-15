@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RagService } from '../../core/services/rag.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ChatStateService } from '../../core/services/chat-state.service';
+import { PreferencesService } from '../../core/services/preferences.service';
 
 import { ChatMessage } from '../../core/models/chat-message';
 
@@ -37,10 +38,17 @@ export class Chat {
     private ragService: RagService,
     private notificationService: NotificationService,
     private cdr: ChangeDetectorRef,
-    private chatStateService: ChatStateService
+    private chatStateService: ChatStateService,
+    private preferencesService: PreferencesService
   ) {
 
     this.messages = this.chatStateService.messages;
+
+  }
+
+  get showSources(): boolean {
+
+    return this.preferencesService.showSources;
 
   }
 
@@ -124,9 +132,7 @@ export class Chat {
 
   clearConversation(): void {
 
-    this.messages.length = 0;
-
-    this.chatStateService.saveMessages();
+    this.chatStateService.clearMessages();
 
     this.question = '';
 

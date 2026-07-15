@@ -6,6 +6,7 @@ import { Login } from './features/auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard';
 import { Documents } from './features/documents/documents';
 import { Chat } from './features/chat/chat';
+import { Settings } from './features/settings/settings';
 
 import { MainLayout } from './layouts/main-layout/main-layout';
 
@@ -35,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'chat',
         component: Chat
+      },
+      {
+        path: 'settings',
+        component: Settings
       }
     ]
   },
